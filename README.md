@@ -1,4 +1,5 @@
 # FINAL PROJECT FOR CS222
+    An app to help users track their diets, reach their goals, and learn to be healthy
 ## By:
         - Humberto T.
         - Dabrion E.
