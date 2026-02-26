@@ -21,6 +21,7 @@
 * Start on this line
 
 ### Notes:
+* "I will need to activate a key for our Google API, so hold off on that until we get closer there" - Humberto Torres
 
 
 preferred format for notes:
