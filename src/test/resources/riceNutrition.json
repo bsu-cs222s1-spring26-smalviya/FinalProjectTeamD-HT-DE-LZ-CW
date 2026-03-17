@@ -1,0 +1,32 @@
+{
+  "totalHits": 1000,
+  "currentPage": 1,
+  "totalPages": 40,
+  "foods": [
+    {
+      "fdcId": 168878,
+      "description": "Rice, white, long-grain, regular, enriched, cooked",
+      "dataType": "SR Legacy",
+      "foodNutrients": [
+        {
+          "number": 208,
+          "name": "Energy",
+          "amount": 130,
+          "unitName": "kcal"
+        },
+        {
+          "number": 203,
+          "name": "Protein",
+          "amount": 2.7,
+          "unitName": "g"
+        },
+        {
+          "number": 205,
+          "name": "Carbohydrate",
+          "amount": 28.2,
+          "unitName": "g"
+        }
+      ]
+    }
+  ]
+}
