@@ -13,7 +13,7 @@ public class FoodItem {
     private double sugar;
     private double fiber;
     private double carbs;
-    private double cholesterol;
+    private double cholestero;
 
     public FoodItem(String datum) {
 
