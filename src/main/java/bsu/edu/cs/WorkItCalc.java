@@ -1,6 +1,7 @@
 package bsu.edu.cs;
 
 public class WorkItCalc {
-    public void calculateCaloricNeeds(double weight, double height, String goal) {
+    public int calculateCaloricNeeds(double weight, double height, String goal) {
+        return 2000; // placeholder for testing purposes
     }
 }
