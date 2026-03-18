@@ -1,11 +1,6 @@
 package bsu.edu.cs;
 
 public class User {
-    /*public User(String username, double weight, double height, String goal) {
-        WorkItCalc calc = new WorkItCalc();
-        calc.calculateCaloricNeeds(weight,height,goal);
-    }*/
-
     private final String username;
     private String name;
     private double weight;
@@ -34,4 +29,9 @@ public class User {
         this.password = password;
     } // end setPassword
     public String getPassword() { return password; } // end getPassword
+
+    public int getCaloricNeeds() {
+        WorkItCalc calc = new WorkItCalc();
+        return calc.calculateCaloricNeeds(weight, height, goal);
+    } // end getCaloricNeeds
 } // close class

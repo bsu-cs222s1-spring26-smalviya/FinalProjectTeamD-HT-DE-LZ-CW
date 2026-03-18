@@ -1,7 +1,7 @@
 package bsu.edu.cs;
 
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class UserTest {
 
@@ -28,5 +28,14 @@ public class UserTest {
         user.setPassword("pass");
 
         assertEquals("pass", user.getPassword());
+    } // end test
+
+    @Test
+    void shouldCalculateCalories() {
+        User user = new User("John", 180, 70, "loss");
+
+        int calories = user.getCaloricNeeds();
+
+        assertTrue(calories > 0);
     } // end test
 } // close class
