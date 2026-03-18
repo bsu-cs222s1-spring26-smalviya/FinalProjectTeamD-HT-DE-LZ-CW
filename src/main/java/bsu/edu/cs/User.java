@@ -7,9 +7,20 @@ public class User {
     }*/
 
     private final String username;
+    private String name;
+    private double weight;
+    private double height;
+    private String goal;
 
     public User(String username) {
         this.username = username;
+    } // end User
+
+    public User(String name, double weight, double height, String goal) {
+        this.username = name;
+        this.weight = weight;
+        this.height = height;
+        this.goal = goal;
     } // end User
 
     public String getUsername() {
