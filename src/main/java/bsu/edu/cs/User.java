@@ -1,9 +1,20 @@
 package bsu.edu.cs;
 
 public class User {
-    public User(String datum, int i, int i1, String datum1, int i2) {
+    public User(String username, double weight, double height, String goal) {
+        WorkItCalc calc = new WorkItCalc();
+        calc.calculateCaloricNeeds(weight,height,goal);
     }
 
     public void setPassword(String password) {
+    }
+
+    public void setUsername(String username) {
+    }
+
+    public int getCaloricNeeds() {
+    }
+
+    public String getUsername() {
     }
 }

@@ -11,16 +11,14 @@ public class DataQuery {
     //I want this to display the data from a specific item that the user is looking at,
     //I have the item variable stored here locally so if we need to, we can call different things without
     //having to mention the item as a parameter every time
-    public String displayData() {
-        item = FoodItem("rice");
-
+    public String displayFoodData(String foodName) {
+        item = new FoodItem(foodName);
         return "Calories: " + (int)item.getCalories() + " kCal\n" +
                 "Protein: " + item.getProtein() + " grams\n" +
                 "Carbs: " + item.getCarbs() + " grams";
     }
 
-    public User grabDataFromFiles(String id, String password) {
-
+    public User findUser(String id, String password) {
         try (BufferedReader br = new BufferedReader(new FileReader("testUserData.csv"))) {
             br.readLine(); // skip header
 
@@ -33,15 +31,13 @@ public class DataQuery {
                             data[2],
                             Integer.parseInt(data[3]),
                             Integer.parseInt(data[4]),
-                            data[5],
-                            Integer.parseInt(data[6].trim())
+                            data[5]
                     );
                 }
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return null;
     }
 
