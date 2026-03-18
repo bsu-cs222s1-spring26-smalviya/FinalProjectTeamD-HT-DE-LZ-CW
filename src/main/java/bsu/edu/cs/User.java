@@ -11,6 +11,7 @@ public class User {
     private double weight;
     private double height;
     private String goal;
+    private String password;
 
     public User(String username) {
         this.username = username;
@@ -23,7 +24,14 @@ public class User {
         this.goal = goal;
     } // end User
 
-    public String getUsername() {
-        return username;
-    } // end getUsername
-}
+    public String getUsername() { return username; } // end getUsername
+    public String getName() { return name; } // end getName
+    public double getWeight() { return weight; } // end getWeight
+    public double getHeight() { return height; } // end getHeight
+    public String getGoal() { return goal; } // end getGoal
+
+    public void setPassword(String password) {
+        this.password = password;
+    } // end setPassword
+    public String getPassword() { return password; } // end getPassword
+} // close class

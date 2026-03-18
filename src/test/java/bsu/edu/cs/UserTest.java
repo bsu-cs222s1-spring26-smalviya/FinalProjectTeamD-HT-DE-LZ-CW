@@ -21,4 +21,12 @@ public class UserTest {
         assertEquals(70, user.getHeight());
         assertEquals("loss", user.getGoal());
     } // end test
+
+    @Test
+    void shouldSetAndGetPassword() {
+        User user = new User("john123");
+        user.setPassword("pass");
+
+        assertEquals("pass", user.getPassword());
+    } // end test
 } // close class
