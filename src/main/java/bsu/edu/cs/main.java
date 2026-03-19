@@ -18,9 +18,11 @@ public class main {
         if (user==null){
             isNewUser(username,password);
         }
+        runLogger();
     }
 
     // Create new user and save to file
+    //This will go into another class called interface later on.
     private static void isNewUser(String username,String password) {
         System.out.println("Since your username or password don't exist, please enter the info below");
         System.out.println("Enter your name: ");
@@ -42,6 +44,37 @@ public class main {
                     weight + "," + height + "," + goal + "," + calories);
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+    private static void runLogger(){
+        boolean running = true;
+        while(running) {
+            //More options to come later like recipe search and all that
+            System.out.print("\nHere are your options for the logger: \n" +
+                    "Type any of the numbers below\n" +
+                    "1. Get Food info\n" +
+                    "2. Log Food\n" +
+                    "3. Get user food log for today\n" +
+                    "Input number here (or type 0 to quit): ");
+            int userResponse = scanner.nextInt();
+            switch (userResponse){
+                case 0:
+                    System.out.println("quitting program....");
+                    running = false;
+                case 1:
+                    //Later we will make it so the user can input the item and we will find the foods
+                    System.out.println(dataQuery.displayFoodData("rice"));
+                    break;
+                case 2:
+                    dataQuery.uploadDataToFiles();
+                    System.out.println("Food logged...");
+                    break;
+                case 3:
+                    System.out.println("Here is your food data for today: ");
+                    //Later we will make it so it shows the days that the user has logged and they can choose
+                    //For testing cases tho this will be the date we choose.
+                    dataQuery.grabUserLogForDay(12,07,25);
+            }
         }
     }
 }

@@ -3,6 +3,7 @@ package bsu.edu.cs;
 public class FoodItem {
 
     //Creating private variables so data won't conflict with other classes
+    //For now hard coding for testing reasons
     private String foodName;
     private double calories;
     private double potassium;
@@ -16,16 +17,18 @@ public class FoodItem {
     private double cholesterol;
 
     public FoodItem(String foodName) {
-        this.foodName = foodName;
-        this.calories = 0.0;
+        //For testing purposes, the food will always be rice...
+        //Numbers will also be hard coded for now
+        this.foodName = "rice";
+        this.calories = 130.0;
         this.potassium = 0.0;
         this.iron = 0.0;
         this.fat = 0.0;
-        this.protein = 0.0;
+        this.protein = 2.7;
         this.calcium = 0.0;
         this.sugar = 0.0;
         this.fiber = 0.0;
-        this.carbs = 0.0;
+        this.carbs = 28.2;
         this.cholesterol = 0.0;
     }
 

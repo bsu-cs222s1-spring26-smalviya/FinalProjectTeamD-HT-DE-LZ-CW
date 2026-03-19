@@ -6,6 +6,10 @@ import java.io.IOException;
 
 public class DataQuery {
     private FoodItem item;
+    //These will be hard coded to be the test ones for now;
+    private String personalUserCSVLog = "src/test/resources/TestHumbertoLogData.csv";
+    private String UserDatabase = "src/test/resources/TestUserData.CSV";
+
     //Maybe it would be better to link this stuff to the user or something
     
     //I want this to display the data from a specific item that the user is looking at,
@@ -17,9 +21,10 @@ public class DataQuery {
                 "Protein: " + item.getProtein() + " grams\n" +
                 "Carbs: " + item.getCarbs() + " grams";
     }
-
+    //This will be better in the user class but for now works here because noone else wrote a function
+    //for this to be possible.
     public User findUser(String id, String password) {
-        try (BufferedReader br = new BufferedReader(new FileReader("testUserData.csv"))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(UserDatabase))) {
             br.readLine(); // skip header
 
             String line;
@@ -40,11 +45,10 @@ public class DataQuery {
         }
         return null;
     }
-
     //Grabs the user log of food for the day mentioned and then returns a string of it.
     public String grabUserLogForDay(int month, int day, int year) {
 
-        try (BufferedReader br = new BufferedReader(new FileReader("testHumbertoLogData.csv"))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(personalUserCSVLog))) {
             br.readLine(); // skip header
 
             String line;
@@ -59,7 +63,7 @@ public class DataQuery {
 
                     this.item = new FoodItem(data[3]);
 
-                    return capitalize(data[3]) + "\n,\n " +
+                    return capitalize(data[3]) + ",\n " +
                             data[4] + " calories,\n" +
                             data[5] + " postassium,\n" +
                             data[6] + " iron,\n" +
@@ -80,7 +84,7 @@ public class DataQuery {
     }
 
     //Still have to finish this one
-    public void uploadDataToFiles(FoodItem item) {
+    public void uploadDataToFiles() {
         // not implemented yet
     }
 

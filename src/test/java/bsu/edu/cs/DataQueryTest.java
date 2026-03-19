@@ -21,14 +21,14 @@ public class DataQueryTest {
     public void testFindUser() {
         DataQuery dataQuery = new DataQuery();
         User testUser = dataQuery.findUser("humTor","shrimp");
-        User expectedUser = new User("humberto",220.0,180.0,"loss",1900);
+        User expectedUser = new User("Humberto",220.0,180.0,"loss");
         assertEquals(expectedUser,testUser);
     }
     @Test
     public void testGrabUserLogForDay(){
         DataQuery dataQuery = new DataQuery();
         String dataForDay = dataQuery.grabUserLogForDay(12,07,25);
-        String expectedString = "Rice\n,\n 130 calories,\n0 postassium,\n0 iron,\n0 fat,\n2.7 protein,\n0 calcium,\n0 sugar,\n0 fiber,\n28.2 carbs,\n0 cholesterol"
+        String expectedString = "Rice,\n 130 calories,\n0 postassium,\n0 iron,\n0 fat,\n2.7 protein,\n0 calcium,\n0 sugar,\n0 fiber,\n28.2 carbs,\n0 cholesterol";
         assertEquals(expectedString,dataForDay);
     }
 
