@@ -34,8 +34,8 @@ public class DataQuery {
                 if (data[0].equals(id) && data[1].equals(password)) {
                     return new User(
                             data[2],
-                            Integer.parseInt(data[3]),
-                            Integer.parseInt(data[4]),
+                            Double.parseDouble(data[3]),
+                            Double.parseDouble(data[4]),
                             data[5]
                     );
                 }
