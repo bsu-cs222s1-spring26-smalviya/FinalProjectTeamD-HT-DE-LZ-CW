@@ -1,4 +1,7 @@
-package bsu.edu.cs;
+package bsu.edu.cs.main;
+
+import bsu.edu.cs.foodData.DataQuery;
+import bsu.edu.cs.user.User;
 
 import java.io.FileWriter;
 import java.io.IOException;

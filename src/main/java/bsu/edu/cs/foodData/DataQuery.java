@@ -1,4 +1,6 @@
-package bsu.edu.cs;
+package bsu.edu.cs.foodData;
+
+import bsu.edu.cs.user.User;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

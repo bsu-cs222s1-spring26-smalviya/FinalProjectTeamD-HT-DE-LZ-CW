@@ -1,4 +1,4 @@
-package bsu.edu.cs;
+package bsu.edu.cs.foodData;
 
 public class FoodItem {
 

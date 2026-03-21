@@ -1,4 +1,4 @@
-package bsu.edu.cs;
+package bsu.edu.cs.foodData;
 
 public class WorkItCalc {
     public int calculateCaloricNeeds(double weight, double height, String goal) {

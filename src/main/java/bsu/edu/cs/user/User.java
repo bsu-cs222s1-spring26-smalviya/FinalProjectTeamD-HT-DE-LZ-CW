@@ -1,4 +1,6 @@
-package bsu.edu.cs;
+package bsu.edu.cs.user;
+
+import bsu.edu.cs.foodData.WorkItCalc;
 
 public class User {
     private String username;
