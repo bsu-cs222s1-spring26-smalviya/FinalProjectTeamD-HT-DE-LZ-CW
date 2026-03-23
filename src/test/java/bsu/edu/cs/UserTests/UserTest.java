@@ -1,4 +1,4 @@
-package bsu.edu.cs;
+package bsu.edu.cs.UserTests;
 
 import bsu.edu.cs.user.User;
 import org.junit.jupiter.api.Test;
