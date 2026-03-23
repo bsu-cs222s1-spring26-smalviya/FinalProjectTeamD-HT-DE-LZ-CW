@@ -1,4 +1,4 @@
-package bsu.edu.cs;
+package bsu.edu.cs.foodData;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
