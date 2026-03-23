@@ -42,7 +42,7 @@ public class main {
         String userID = user.getUsername();
         int calories = user.getCaloricNeeds();
         // Append to CSV
-        try (FileWriter fw = new FileWriter("UserData.csv", true)) {
+        try (FileWriter fw = new FileWriter("UserData/UserDatabase.csv", true)) {
             fw.write("\n" + userID + "," + password + "," + name + "," +
                     weight + "," + height + "," + goal + "," + calories);
         } catch (IOException e) {
