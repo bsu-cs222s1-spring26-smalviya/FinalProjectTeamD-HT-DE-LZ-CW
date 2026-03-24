@@ -1,4 +1,4 @@
-package bsu.edu.cs;
+package bsu.edu.cs.FoodDataTests;
 
 import bsu.edu.cs.foodData.LogTime;
 import org.junit.jupiter.api.Test;

@@ -17,7 +17,6 @@ public class main {
         String username = scanner.nextLine();
         System.out.println("Enter your password:");
         String password = scanner.nextLine();
-        user = dataQuery.findUser(username,password);
         if (user==null){
             isNewUser(username,password);
         }

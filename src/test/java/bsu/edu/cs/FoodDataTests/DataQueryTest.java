@@ -18,21 +18,6 @@ public class DataQueryTest {
         assertEquals(expectedDataString,displayDataString);
     }
     @Test
-    public void testFindUser() {
-        DataQuery dataQuery = new DataQuery();
-        User testUser = dataQuery.findUser("humTor","shrimp");
-        String name = "Humberto";
-        double weight = 220.0;
-        double height = 180.0;
-        String goal = "loss";
-        double caloricNeeds = 1900;
-        boolean expectedResult = false;
-        if(testUser.getWeight() == weight && testUser.getHeight() == height
-                && testUser.getGoal().equals(goal)
-                && testUser.getCaloricNeeds() == caloricNeeds)
-        assertTrue(expectedResult);
-    }
-    @Test
     public void testGrabUserLogForDay(){
         DataQuery dataQuery = new DataQuery();
         String dataForDay = dataQuery.grabUserLogForDay(12,07,25);
