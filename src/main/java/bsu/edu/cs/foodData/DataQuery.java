@@ -10,8 +10,6 @@ public class DataQuery {
     private FoodItem item;
     //These will be hard coded to be the test ones for now;
     private String personalUserCSVLog = "src/test/resources/TestHumbertoLogData.csv";
-    private String UserDatabase = "src/test/resources/TestUserData.CSV";
-
     //Maybe it would be better to link this stuff to the user or something
     
     //I want this to display the data from a specific item that the user is looking at,
@@ -22,30 +20,6 @@ public class DataQuery {
         return "Calories: " + (int)item.getCalories() + " kCal\n" +
                 "Protein: " + item.getProtein() + " grams\n" +
                 "Carbs: " + item.getCarbs() + " grams";
-    }
-    //This will be better in the user class but for now works here because noone else wrote a function
-    //for this to be possible.
-    public User findUser(String id, String password) {
-        try (BufferedReader br = new BufferedReader(new FileReader(UserDatabase))) {
-            br.readLine(); // skip header
-
-            String line;
-            while ((line = br.readLine()) != null) {
-                String[] data = line.split(",");
-
-                if (data[0].equals(id) && data[1].equals(password)) {
-                    return new User(
-                            data[2],
-                            Double.parseDouble(data[3]),
-                            Double.parseDouble(data[4]),
-                            data[5]
-                    );
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
     }
     //Grabs the user log of food for the day mentioned and then returns a string of it.
     public String grabUserLogForDay(int month, int day, int year) {
