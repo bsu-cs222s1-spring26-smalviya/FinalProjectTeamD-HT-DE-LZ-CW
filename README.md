@@ -6,7 +6,17 @@
         - Louis Z.
         - Caleb W.
 
-### Iteration 1 Checklist:
+## How To Run
+
+### Gradle configurations:
+To use this program effectively, you will need an API key from https://fdc.nal.usda.gov/api-key-signup
+Once you sign up and get an API key, you will need to follow the instructions below:
+* Go to "C:\Users\{Your-Username-Here}\.gradle"
+* Create/open gradle.properties in your .gradle folder
+* paste your API key following the gradle.properties.template
+* sync the gradle changes in your IDE and see if it runs.
+
+## Iteration 1 Checklist:
 * User can input goal (Weight gain, weight loss, goal weight)
 * User can input weight
 * User can input height
@@ -17,10 +27,10 @@
 * Data is stored locally on the user’s storage in a JSON file
 * Data can be pulled from previous days
 
-### Completed Items:
+## Completed Items:
 * Start on this line
 
-### Notes:
+## Notes:
 * "I will need to activate a key for our Google API, so hold off on that until we get closer there" - Humberto Torres
 
 
