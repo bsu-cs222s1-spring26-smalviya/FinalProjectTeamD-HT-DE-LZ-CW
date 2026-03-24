@@ -1,5 +1,6 @@
-package bsu.edu.cs.UserTests;
+package bsu.edu.cs.userTest;
 
+import bsu.edu.cs.user.VerifyUser;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -10,8 +11,8 @@ public class VerifyUserTest {
         String testFile = "src/test/resources/TestUserData.CSV";
         String username = "LooBaka";
         String password = "dogs";
-        VerifyUser verifyUser = new VerifyUser();
-        userExists = verifyUser.verifyUserExists(username,password,testFile);
+        VerifyUser verifyUser = new VerifyUser(testFile);
+        userExists = verifyUser.verifyUserExists(username,password);
         Assertions.assertTrue(userExists);
     }
     @Test
@@ -20,10 +21,10 @@ public class VerifyUserTest {
         String testFile = "src/test/resources/TestUserData.CSV";
         String username = "LooBaka";
         String password = "dogs";
-        int id;
+        int id = -1;
         int expectedoutput = 2;
-        VerifyUser verifyUser = new VerifyUser();
-        if(verifyUser.verifyUserExists(username,password,testFile)){id = verifyUser.getID();}
+        VerifyUser verifyUser = new VerifyUser(testFile);
+        if(verifyUser.verifyUserExists(username,password)){id = verifyUser.getID();}
         Assertions.assertEquals(expectedoutput,id);
     }
 }
