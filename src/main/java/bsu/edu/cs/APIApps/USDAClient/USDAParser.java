@@ -1,4 +1,4 @@
-package bsu.edu.cs.APIApps;
+package bsu.edu.cs.APIApps.USDAClient;
 
 //I need to import these
 //import com.jayway.jsonpath.JsonPath;

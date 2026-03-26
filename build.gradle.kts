@@ -60,4 +60,9 @@ tasks.compileJava {
 
 tasks.test {
     useJUnitPlatform()
+    // This is so you can use the UDAAPIKey in java classes by doing String usdaAPIKey = System.getProperty("usdaKey","DEMO_KEY");
+    systemProperty("usdaKey", project.findProperty("usdaKey") ?: "DEMO_KEY")
+}
+tasks.withType<JavaExec> {
+    systemProperty("usdaKey", project.findProperty("usdaKey") ?: "DEMO_KEY")
 }
