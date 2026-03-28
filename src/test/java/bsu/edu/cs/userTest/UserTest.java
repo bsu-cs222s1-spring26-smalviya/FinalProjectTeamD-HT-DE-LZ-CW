@@ -13,4 +13,22 @@ public class UserTest {
         assertEquals(1, user.getId());
         assertEquals("JohnSmith1", user.getUsername());
     } // end test
+
+    @Test
+    void shouldUpdateWeight() {
+        User user = new User(1, "u", "p", "n", 0, "LBS", 0, "LOSE", 1);
+
+        user.setWeight(5);
+
+        assertEquals(5, user.getWeight());
+    } // end test
+
+    @Test
+    void shouldUpdateGoal() {
+        User user = new User(1, "u", "p", "n", 0, "LBS", 0, "LOSE", 1);
+
+        user.setGoal("GAIN");
+
+        assertEquals("GAIN", user.getGoal());
+    } // end test
 } // close class
