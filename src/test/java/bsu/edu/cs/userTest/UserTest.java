@@ -7,36 +7,10 @@ import static org.junit.jupiter.api.Assertions.*;
 public class UserTest {
 
     @Test
-    void shouldCreateUserWithUsername() {
-        User user = new User("john123");
+    void shouldCreateUser() {
+        User user = new User(1, "JohnSmith1", "Password123", "John", 180, "LBS", 70, "LOSE", 3);
 
-        assertEquals("john123", user.getUsername());
-    } // end test
-
-    @Test
-    void shouldCreateUserWithAttributes() {
-        User user = new User("John", 180, 70, "loss");
-
-        assertEquals("John", user.getUsername());
-        assertEquals(180, user.getWeight());
-        assertEquals(70, user.getHeight());
-        assertEquals("loss", user.getGoal());
-    } // end test
-
-    @Test
-    void shouldSetAndGetPassword() {
-        User user = new User("john123");
-        user.setPassword("pass");
-
-        assertEquals("pass", user.getPassword());
-    } // end test
-
-    @Test
-    void shouldCalculateCalories() {
-        User user = new User("John", 180, 70, "loss");
-
-        int calories = user.getCaloricNeeds();
-
-        assertTrue(calories > 0);
+        assertEquals(1, user.getId());
+        assertEquals("JohnSmith1", user.getUsername());
     } // end test
 } // close class

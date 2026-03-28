@@ -3,42 +3,29 @@ package bsu.edu.cs.user;
 import bsu.edu.cs.calculators.WorkItCalc;
 
 public class User {
+    private int id;
     private String username;
+    private String password;
     private String name;
     private double weight;
+    private String weightMeasurement;
     private double height;
     private String goal;
-    private String password;
+    private int activityLevel;
 
-    public User(String username) {
+    public User(int id, String username, String password, String name, double weight, String weightMeasurement, double height, String goal, int activityLevel) {
+        this.id = id;
         this.username = username;
-    } // end User
-
-    //I think we should have a way to have the caloric needs already saved so the calculator isn't
-    //Called every instance - Humberto
-    public User(String name, double weight, double height, String goal) {
-        this.username = name;
+        this.password = password;
+        this.name = name;
         this.weight = weight;
+        this.weightMeasurement = weightMeasurement;
         this.height = height;
         this.goal = goal;
+        this.activityLevel = activityLevel;
     } // end User
 
-    public String getUsername() { return username; } // end getUsername
-    public String getName() { return name; } // end getName
-    public double getWeight() { return weight; } // end getWeight
-    public double getHeight() { return height; } // end getHeight
-    public String getGoal() { return goal; } // end getGoal
-    public String getPassword() { return password; } // end getPassword
-
-
-    public void setPassword(String password) {
-        this.password = password;
-    } // end setPassword
-    public void setUsername(String username) {this.username = username;}
-
-    public int getCaloricNeeds() {
-        WorkItCalc calc = new WorkItCalc();
-        return calc.calculateCaloricNeeds(weight, height, goal);
-    } // end getCaloricNeeds
+    public int getId() { return id; }
+    public String getUsername() { return username; }
 
 } // close class
