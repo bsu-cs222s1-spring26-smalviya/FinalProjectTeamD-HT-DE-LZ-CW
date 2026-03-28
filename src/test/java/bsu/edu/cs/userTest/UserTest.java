@@ -31,4 +31,11 @@ public class UserTest {
 
         assertEquals("GAIN", user.getGoal());
     } // end test
+
+    @Test
+    void shouldNotCrashWhenUpdatingDatabase() {
+        User user = new User(1, "u", "p", "n", 0, "LBS", 0, "LOSE", 1);
+
+        assertDoesNotThrow(() -> user.setWeight(190));
+    } // end test
 } // close class
