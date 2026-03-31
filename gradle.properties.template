@@ -1,2 +1,2 @@
-# USDA API Key - Get yours at api.data.gov
-usdaKey=PASTE_YOUR_KEY_HERE
+// USDA API Key - Get yours at api.data.gov
+"usdaKey=PASTE_YOUR_KEY_HERE"

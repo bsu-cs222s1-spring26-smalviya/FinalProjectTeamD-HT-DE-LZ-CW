@@ -22,18 +22,25 @@ dependencies {
     implementation("io.swagger.core.v3:swagger-annotations:2.2.15")
     implementation("jakarta.annotation:jakarta.annotation-api:2.1.1")
     implementation("com.google.code.findbugs:jsr305:3.0.2")
+    implementation("org.openapitools:jackson-databind-nullable:0.2.6")
+    // Use a newer version (2.16.1 or higher) to ensure JavaTimeFeature exists
+    val jacksonVersion = "2.16.1"
+    implementation("com.fasterxml.jackson.core:jackson-databind:$jacksonVersion")
+    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jacksonVersion")
     //Json
+    implementation("javax.annotation:javax.annotation-api:1.3.2")
     implementation(group = "org.json", name = "json", version = "20090211")
 }
+
+val usdaKeyProperty: String = project.findProperty("usdaKey")?.toString() ?: "DEMO_KEY"
 //Generates OPENAPI for java
 openApiGenerate {
     generatorName.set("java")
-    val apiKey = project.findProperty("usdaKey")?.toString() ?: "DEMO_KEY"
     // This will print the API key you're using to be sure
-    //println("--- GENERATING USDA CLIENT USING KEY: $apiKey ---")
-    inputSpec.set("https://api.nal.usda.gov/fdc/v1/json-spec?api_key=$apiKey")
+    println("--- GENERATING USDA CLIENT USING KEY: $usdaKeyProperty ---")
+    remoteInputSpec.set("https://api.nal.usda.gov/fdc/v1/json-spec?api_key=$usdaKeyProperty")
     // ... rest of config
-    outputDir.set(layout.buildDirectory.dir("generated").get().asFile.absolutePath)
+    outputDir.set(layout.buildDirectory.dir("generated").map{it.asFile.absolutePath})
 
     apiPackage.set("com.usda.api")
     modelPackage.set("com.usda.model")
@@ -60,9 +67,17 @@ tasks.compileJava {
 
 tasks.test {
     useJUnitPlatform()
-    // This is so you can use the UDAAPIKey in java classes by doing String usdaAPIKey = System.getProperty("usdaKey","DEMO_KEY");
-    systemProperty("usdaKey", project.findProperty("usdaKey") ?: "DEMO_KEY")
+    // Passes the key to your JUnit tests
+    systemProperty("usdaKey", usdaKeyProperty)
+    //setProperty("usdaKey", usdaKeyProperty)
+    //extra["usdaKey"] = usdaKeyProperty
+
 }
+
 tasks.withType<JavaExec> {
-    systemProperty("usdaKey", project.findProperty("usdaKey") ?: "DEMO_KEY")
+    // Passes the key when you run the app via 'gradle run'
+    systemProperty("usdaKey", usdaKeyProperty)
+    //setProperty("usdaKey", usdaKeyProperty)
+    //extra["usdaKey"] = usdaKeyProperty
+
 }
