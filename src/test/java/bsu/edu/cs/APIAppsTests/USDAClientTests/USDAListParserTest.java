@@ -2,23 +2,24 @@ package bsu.edu.cs.APIAppsTests.USDAClientTests;
 
 import bsu.edu.cs.APIApps.USDAClient.USDAListParser;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import org.json.JSONException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class USDAListParserTest {
     @Test
-    public void testParseForNumberOfPages(){
+    public void testParseForNumberOfPages() throws JSONException {
         USDAListParser listParser = new USDAListParser("src/test/resources/red+applesList.json");
         int actual = listParser.parseForNumberOfPages();
-        int expectedInt = 5;
+        int expectedInt = 10;
         Assertions.assertEquals(expectedInt,actual);
     }
 
     @Test
-    public void testParseForFDCID_firstInList(){
+    public void testParseForFDCID_firstInList() throws JSONException {
         USDAListParser listParser = new USDAListParser("src/test/resources/red+applesList.json");
-        int expectedID = 1750339;
-        int acutal = listParser.parseForFDCID();
+        int expectedID = 2506827;
+        int acutal = listParser.parseForFDCID(1);
         Assertions.assertEquals(expectedID,acutal);
     }
 
@@ -26,15 +27,15 @@ public class USDAListParserTest {
     //Info commented in the last part of the page
 
     @Test
-    public void testParseForNameOfFood(){
+    public void testParseForNameOfFood() throws JSONException {
         USDAListParser listParser = new USDAListParser("src/test/resources/red+applesList.json");
         String actual =  listParser.parseForNameofFood(3);
-        String expected = "RED APPLES ORGANIC APPLE CHIPS";
+        String expected = "RED APPLES ORGANIC APPLE CHIPS, RED APPLES";
         Assertions.assertEquals(expected,actual);
     }
 
     @Test
-    public void testParseForCurrentPage(){
+    public void testParseForCurrentPage() throws JSONException {
         USDAListParser listParser = new USDAListParser("src/test/resources/red+applesList.json");
         int expected = 1;
         int actual = listParser.parseForCurrentPage();
@@ -42,7 +43,7 @@ public class USDAListParserTest {
     }
 
     @Test
-    public void testParseForLastPage(){
+    public void testParseForLastPage() throws JSONException {
         USDAListParser listParser = new USDAListParser("src/test/resources/red+applesList.json");
         int expected = 10;
         int actual = listParser.parseForLastPage();
@@ -50,14 +51,14 @@ public class USDAListParserTest {
     }
 
     @Test
-    public void testParseForBrandNameOfFood(){
+    public void testParseForBrandNameOfFood() throws JSONException {
         USDAListParser listParser = new USDAListParser("src/test/resources/red+applesList.json");
         String expected = "GOURMET NUT.";
         String actual = listParser.parseForBrandNameOfFood(3);
         Assertions.assertEquals(expected,actual);
     }
     @Test
-    public void testParseForCaloriesOfFood(){
+    public void testParseForCaloriesOfFood() throws JSONException {
         USDAListParser listParser = new USDAListParser("src/test/resources/red+applesList.json");
         double expected = 381;
         double actual = listParser.parseForCaloriesOfFood(3);

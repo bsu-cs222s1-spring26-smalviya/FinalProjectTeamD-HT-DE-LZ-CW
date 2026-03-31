@@ -11,6 +11,8 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+//The reason we save these to a json file is to be able to grab any older data in case the user wants to
+//come back later to look at a different item in the same list and that...
 public class USDAToJsonClient {
     private final String apiKey;
     private final int pageSize = 5;
