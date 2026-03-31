@@ -16,7 +16,7 @@ double calories;
     public int calculateCaloricNeeds(double weight, double height, String goal) {
         return 2000; // placeholder for testing purposes
 System.out.println("What is your gender? M or F?");
-        gender = Scanner.nextLine();
+        gender = scanner.nextLine();
 
         genderChar = gender.charAt(0);
 
