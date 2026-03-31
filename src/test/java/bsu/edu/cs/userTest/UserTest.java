@@ -7,36 +7,35 @@ import static org.junit.jupiter.api.Assertions.*;
 public class UserTest {
 
     @Test
-    void shouldCreateUserWithUsername() {
-        User user = new User("john123");
+    void shouldCreateUser() {
+        User user = new User(1, "JohnSmith1", "Password123", "John", 180, "LBS", 70, "LOSE", 3);
 
-        assertEquals("john123", user.getUsername());
+        assertEquals(1, user.getId());
+        assertEquals("JohnSmith1", user.getUsername());
     } // end test
 
     @Test
-    void shouldCreateUserWithAttributes() {
-        User user = new User("John", 180, 70, "loss");
+    void shouldUpdateWeight() {
+        User user = new User(1, "u", "p", "n", 0, "LBS", 0, "LOSE", 1);
 
-        assertEquals("John", user.getUsername());
-        assertEquals(180, user.getWeight());
-        assertEquals(70, user.getHeight());
-        assertEquals("loss", user.getGoal());
+        user.setWeight(5);
+
+        assertEquals(5, user.getWeight());
     } // end test
 
     @Test
-    void shouldSetAndGetPassword() {
-        User user = new User("john123");
-        user.setPassword("pass");
+    void shouldUpdateGoal() {
+        User user = new User(1, "u", "p", "n", 0, "LBS", 0, "LOSE", 1);
 
-        assertEquals("pass", user.getPassword());
+        user.setGoal("GAIN");
+
+        assertEquals("GAIN", user.getGoal());
     } // end test
 
     @Test
-    void shouldCalculateCalories() {
-        User user = new User("John", 180, 70, "loss");
+    void shouldNotCrashWhenUpdatingDatabase() {
+        User user = new User(1, "u", "p", "n", 0, "LBS", 0, "LOSE", 1);
 
-        int calories = user.getCaloricNeeds();
-
-        assertTrue(calories > 0);
+        assertDoesNotThrow(() -> user.setWeight(190));
     } // end test
 } // close class
