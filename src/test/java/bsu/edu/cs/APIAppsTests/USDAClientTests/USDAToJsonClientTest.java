@@ -34,7 +34,7 @@ public class USDAToJsonClientTest {
         String urlResult = usdaClient.getURLStringForFoodID(1750339);
         String yourAPIKey = System.getProperty("usdaKey");
         String expected = String.format("https://api.nal.usda.gov/fdc/v1/food/1750339?" +
-                "api_key=%s&format=abridged", yourAPIKey);
+                "api_key=%s&format=full", yourAPIKey);
         Assertions.assertEquals(expected,urlResult);
     }
 }

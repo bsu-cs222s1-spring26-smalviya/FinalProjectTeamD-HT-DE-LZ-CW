@@ -18,7 +18,7 @@ public class USDAToJsonClient {
     private final int pageSize = 5;
     private final String[] dataType = new String[]{"Branded"};
     //There are [Branded,FNDDS,SR Legacy,Experimental Foods,Foundation Foods]
-    private final String format = "abridged";
+    private final String format = "full";
     public USDAToJsonClient() {
          apiKey = System.getProperty("usdaKey");
     }
