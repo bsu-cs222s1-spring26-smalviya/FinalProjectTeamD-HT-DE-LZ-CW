@@ -66,8 +66,8 @@ System.out.println("What is your gender? M or F?");
         System.out.println("Type in 4 if you do intensely six to seven days a week.");
         System.out.println("Type in 5 if you do exercise intensely six to seven days a week and have a physically active job.");
 
-        exercise = keyboard.nextLine();
-        none = keyboard.nextLine() != null;
+        exercise = scanner.nextLine();
+        none = scanner.nextLine() != null;
 
         System.out.println("Your daily calorie needs " + cal);
     }
