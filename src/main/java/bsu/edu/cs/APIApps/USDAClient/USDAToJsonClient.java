@@ -1,14 +1,9 @@
 package bsu.edu.cs.APIApps.USDAClient;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.usda.invoker.ApiClient;
-import com.usda.api.FdcApi;
+
 import org.json.JSONException;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
@@ -19,6 +14,9 @@ import java.nio.file.Path;
 public class USDAToJsonClient {
     private final String apiKey;
     private final int pageSize = 5;
+    private final String[] dataType = new String[]{"Branded"};
+    //There are [Branded,FNDDS,SR Legacy,Experimental Foods,Foundation Foods]
+    private final String format = "abridged";
     public USDAToJsonClient() {
          apiKey = System.getProperty("usdaKey");
     }
@@ -58,9 +56,10 @@ public class USDAToJsonClient {
 
     public String getURLStringForFoodList(String foodName,int pageNumber){
         String encodedTitle = URLEncoder.encode(foodName, java.nio.charset.StandardCharsets.UTF_8);
+        String joinedData = String.join(",", dataType);
         String urlString = String.format(
-                "https://api.nal.usda.gov/fdc/v1/foods/search?api_key=%s&query=%s&pageSize=%d&pageNumber=%d",
-                apiKey,encodedTitle,pageSize,pageNumber);
+                "https://api.nal.usda.gov/fdc/v1/foods/search?api_key=%s&dataType=%s&query=%s&pageSize=%d&pageNumber=%d",
+                apiKey,joinedData,encodedTitle,pageSize,pageNumber);
         System.out.println(urlString);
         return urlString;
     }
@@ -68,8 +67,8 @@ public class USDAToJsonClient {
         String foodName = Integer.toString(foodID);
         String encodedTitle = URLEncoder.encode(foodName, java.nio.charset.StandardCharsets.UTF_8);
         String urlString = String.format(
-                "https://api.nal.usda.gov/fdc/v1/food/%s?api_key=%s",
-                encodedTitle,apiKey);
+                "https://api.nal.usda.gov/fdc/v1/food/%s?api_key=%s&format=%s",
+                encodedTitle,apiKey,format);
         System.out.println(urlString);
         return urlString;
     }

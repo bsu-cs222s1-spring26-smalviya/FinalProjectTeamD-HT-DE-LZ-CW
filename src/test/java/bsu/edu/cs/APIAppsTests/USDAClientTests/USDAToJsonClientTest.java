@@ -1,11 +1,8 @@
 package bsu.edu.cs.APIAppsTests.USDAClientTests;
 
 import bsu.edu.cs.APIApps.USDAClient.USDAToJsonClient;
-import bsu.edu.cs.foodData.DataQuery;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class USDAToJsonClientTest {
     //Example api url
@@ -15,8 +12,8 @@ public class USDAToJsonClientTest {
         USDAToJsonClient usdaClient = new USDAToJsonClient();
         String urlResult = usdaClient.getURLStringForFoodList("apple");
         String yourAPIKey = System.getProperty("usdaKey");
-        String expected = String.format("https://api.nal.usda.gov/fdc/v1/foods/search?api_key=%s&query=apple" +
-                        "&pageSize=1&pageNumber=1", yourAPIKey);
+        String expected = String.format("https://api.nal.usda.gov/fdc/v1/foods/search?api_key=%s&dataType=Branded" +
+                "&query=apple&pageSize=5&pageNumber=1", yourAPIKey);
         Assertions.assertEquals(expected,urlResult);
 
     }
@@ -26,8 +23,18 @@ public class USDAToJsonClientTest {
         USDAToJsonClient usdaClient = new USDAToJsonClient();
         String urlResult = usdaClient.getURLStringForFoodList("red apple");
         String yourAPIKey = System.getProperty("usdaKey");
-        String expected = String.format("https://api.nal.usda.gov/fdc/v1/foods/search?api_key=%s&query=red+apple" +
-                "&pageSize=1&pageNumber=1", yourAPIKey);
+        String expected = String.format("https://api.nal.usda.gov/fdc/v1/foods/search?api_key=%s&dataType=Branded" +
+                "&query=red+apple&pageSize=5&pageNumber=1", yourAPIKey);
+        Assertions.assertEquals(expected,urlResult);
+    }
+
+    @Test
+    public void testGetURLStringForAppleID(){
+        USDAToJsonClient usdaClient = new USDAToJsonClient();
+        String urlResult = usdaClient.getURLStringForFoodID(1750339);
+        String yourAPIKey = System.getProperty("usdaKey");
+        String expected = String.format("https://api.nal.usda.gov/fdc/v1/food/1750339?" +
+                "api_key=%s&format=abridged", yourAPIKey);
         Assertions.assertEquals(expected,urlResult);
     }
 }

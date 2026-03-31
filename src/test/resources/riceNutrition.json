@@ -1,32 +1,122 @@
 {
-  "totalHits": 1000,
-  "currentPage": 1,
-  "totalPages": 40,
-  "foods": [
+  "fdcId": 356554,
+  "description": "RICE",
+  "dataType": "Branded",
+  "publicationDate": "2019-04-01",
+  "brandOwner": "FRESH & EASY",
+  "gtinUpc": "5051379035976",
+  "foodNutrients": [
     {
-      "fdcId": 168878,
-      "description": "Rice, white, long-grain, regular, enriched, cooked",
-      "dataType": "SR Legacy",
-      "foodNutrients": [
-        {
-          "number": 208,
-          "name": "Energy",
-          "amount": 130,
-          "unitName": "kcal"
-        },
-        {
-          "number": 203,
-          "name": "Protein",
-          "amount": 2.7,
-          "unitName": "g"
-        },
-        {
-          "number": 205,
-          "name": "Carbohydrate",
-          "amount": 28.2,
-          "unitName": "g"
-        }
-      ]
+      "number": "301",
+      "name": "Calcium, Ca",
+      "amount": 28,
+      "unitName": "MG",
+      "derivationCode": "LCCD",
+      "derivationDescription": "Calculated from a daily value percentage per serving size measure"
+    },
+    {
+      "number": "303",
+      "name": "Iron, Fe",
+      "amount": 1.88,
+      "unitName": "MG",
+      "derivationCode": "LCCD",
+      "derivationDescription": "Calculated from a daily value percentage per serving size measure"
+    },
+    {
+      "number": "318",
+      "name": "Vitamin A, IU",
+      "amount": 69,
+      "unitName": "IU",
+      "derivationCode": "LCCD",
+      "derivationDescription": "Calculated from a daily value percentage per serving size measure"
+    },
+    {
+      "number": "401",
+      "name": "Vitamin C, total ascorbic acid",
+      "amount": 2.5,
+      "unitName": "MG",
+      "derivationCode": "LCCD",
+      "derivationDescription": "Calculated from a daily value percentage per serving size measure"
+    },
+    {
+      "number": "601",
+      "name": "Cholesterol",
+      "amount": 0,
+      "unitName": "MG",
+      "derivationCode": "LCCD",
+      "derivationDescription": "Calculated from a daily value percentage per serving size measure"
+    },
+    {
+      "number": "606",
+      "name": "Fatty acids, total saturated",
+      "amount": 0,
+      "unitName": "G",
+      "derivationCode": "LCCD",
+      "derivationDescription": "Calculated from a daily value percentage per serving size measure"
+    },
+    {
+      "number": "203",
+      "name": "Protein",
+      "amount": 3.47,
+      "unitName": "G",
+      "derivationCode": "LCCS",
+      "derivationDescription": "Calculated from value per serving size measure"
+    },
+    {
+      "number": "204",
+      "name": "Total lipid (fat)",
+      "amount": 2.43,
+      "unitName": "G",
+      "derivationCode": "LCCS",
+      "derivationDescription": "Calculated from value per serving size measure"
+    },
+    {
+      "number": "205",
+      "name": "Carbohydrate, by difference",
+      "amount": 26.4,
+      "unitName": "G",
+      "derivationCode": "LCCS",
+      "derivationDescription": "Calculated from value per serving size measure"
+    },
+    {
+      "number": "208",
+      "name": "Energy",
+      "amount": 139,
+      "unitName": "KCAL",
+      "derivationCode": "LCCS",
+      "derivationDescription": "Calculated from value per serving size measure"
+    },
+    {
+      "number": "269",
+      "name": "Total Sugars",
+      "amount": 1.39,
+      "unitName": "G",
+      "derivationCode": "LCCS",
+      "derivationDescription": "Calculated from value per serving size measure"
+    },
+    {
+      "number": "291",
+      "name": "Fiber, total dietary",
+      "amount": 1.4,
+      "unitName": "G",
+      "derivationCode": "LCCS",
+      "derivationDescription": "Calculated from value per serving size measure"
+    },
+    {
+      "number": "307",
+      "name": "Sodium, Na",
+      "amount": 465,
+      "unitName": "MG",
+      "derivationCode": "LCCS",
+      "derivationDescription": "Calculated from value per serving size measure"
+    },
+    {
+      "number": "605",
+      "name": "Fatty acids, total trans",
+      "amount": 0,
+      "unitName": "G",
+      "derivationCode": "LCCS",
+      "derivationDescription": "Calculated from value per serving size measure"
     }
   ]
 }
