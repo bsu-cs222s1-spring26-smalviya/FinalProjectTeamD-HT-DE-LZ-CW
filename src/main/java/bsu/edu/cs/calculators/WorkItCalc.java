@@ -1,5 +1,7 @@
 package bsu.edu.cs.calculators;
-Scanner scanner = new Scanner(System.in);
+
+public class WorkItCalc {
+    Scanner scanner = new Scanner(System.in);
 
 int BMR;
 char genderChar;
@@ -11,7 +13,6 @@ boolean moderately = false;
 boolean intensely = false;
 boolean five;
 double calories;
-public class WorkItCalc {
     public int calculateCaloricNeeds(double weight, double height, String goal) {
         return 2000; // placeholder for testing purposes
 System.out.println("What is your gender? M or F?");
