@@ -15,10 +15,11 @@ public class User {
     private double height;
     private String goal;
     private int activityLevel;
+    private String gender;
 
     private final String filePath = "src/main/resources/UserData/UserDatabase.csv";
 
-    public User(int id, String username, String password, String name, double weight, String weightMeasurement, double height, String goal, int activityLevel) {
+    public User(int id, String username, String password, String name, double weight, String weightMeasurement, double height, String goal, int activityLevel, String gender) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -28,6 +29,7 @@ public class User {
         this.height = height;
         this.goal = goal;
         this.activityLevel = activityLevel;
+        this.gender = gender;
     } // end User
 
     // getters for all variables
@@ -40,8 +42,9 @@ public class User {
     public double getHeight() { return height; }
     public String getGoal() { return goal; }
     public int getActivityLevel() { return activityLevel; }
+    public String getGender() { return gender; }
 
-    // setters for all variable (aside from Id and weightMeasurement)
+    // setters for all variable (aside from Id and weightMeasurement and gender)
     public void setUsername(String username) {
         this.username = username;
         updateDatabase();
@@ -101,6 +104,6 @@ public class User {
     } // end updateDatabase
 
     public String toCSVLine() {
-        return id + "," + username + "," + password + "," + name + "," + weight + "," + weightMeasurement + "," + height + "," + goal + "," + activityLevel;
+        return id + "," + username + "," + password + "," + name + "," + weight + "," + weightMeasurement + "," + height + "," + goal + "," + activityLevel + "," + gender;
     } // end toCSVLine
 } // close class

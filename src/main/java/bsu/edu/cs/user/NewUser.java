@@ -20,7 +20,7 @@ public class NewUser {
 
     private void createUserLog(User user) {
         try (FileWriter writer = new FileWriter("src/main/resources/UserData/logs/" + user.getId() + ".csv")) {
-            writer.write("Date,Calories\n");
+            writer.write("month,day,year,itemName,calories,potassium,iron,fat,protein,calcium,sugar,fiber,carbs,cholesterol,weight,measurement\n");
         } catch (IOException e) {
             throw new RuntimeException("Failed to write user log", e);
         } // end try/catch

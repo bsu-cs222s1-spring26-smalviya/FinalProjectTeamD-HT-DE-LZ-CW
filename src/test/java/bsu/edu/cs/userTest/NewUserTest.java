@@ -16,7 +16,7 @@ public class NewUserTest {
     @Test
     void shouldCreateNewUserSuccessfully() {
         NewUser newUser = new NewUser();
-        User user = new User(1000, "Username", "Password", "Name", 180, "LBS", 70, "LOSE", 3);
+        User user = new User(1000, "Username", "Password", "Name", 180, "lbs", 70, "lose", 3, "male");
         boolean result = newUser.createNewUser(user);
 
         assertTrue(result);
