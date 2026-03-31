@@ -33,7 +33,7 @@ public class USDAToJsonClient {
             String json = new String(inputStream.readAllBytes(), StandardCharsets.UTF_8);
 
             // Write to itemQueryList.json
-            Files.writeString(Path.of("itemQueryList.json"), json);
+            Files.writeString(Path.of("src/main/resources/USDAData/itemQueryList.json"), json);
         }
     }
 
@@ -47,7 +47,7 @@ public class USDAToJsonClient {
             String json = new String(inputStream.readAllBytes(), StandardCharsets.UTF_8);
 
             // Write to itemInfo.json
-            Files.writeString(Path.of("itemInfo.json"), json);
+            Files.writeString(Path.of("src/main/resources/USDAData/itemInfo.json"), json);
         }
     }
 
@@ -62,7 +62,7 @@ public class USDAToJsonClient {
         String urlString = String.format(
                 "https://api.nal.usda.gov/fdc/v1/foods/search?api_key=%s&dataType=%s&query=%s&pageSize=%d&pageNumber=%d",
                 apiKey,joinedData,encodedTitle,pageSize,pageNumber);
-        System.out.println(urlString);
+       // System.out.println(urlString);
         return urlString;
     }
     public String getURLStringForFoodID(int foodID){
@@ -71,7 +71,7 @@ public class USDAToJsonClient {
         String urlString = String.format(
                 "https://api.nal.usda.gov/fdc/v1/food/%s?api_key=%s&format=%s",
                 encodedTitle,apiKey,format);
-        System.out.println(urlString);
+       // System.out.println(urlString);
         return urlString;
     }
 
