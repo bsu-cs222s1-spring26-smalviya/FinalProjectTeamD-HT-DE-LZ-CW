@@ -82,7 +82,7 @@ public class User {
                 String[] data = line.split(",");
 
                 if (data.length > 0 && Integer.parseInt(data[0]) == this.id) {
-                    line = id + "," + username + "," + password + "," + name + "," + weight + "," + weightMeasurement + "," + height + "," + goal + "," + activityLevel;
+                    line = this.toCSVLine();
                 } // end if
 
                 lines.add(line);
@@ -99,4 +99,8 @@ public class User {
             throw new RuntimeException("Failed to write user database", e);
         } // end try/catch
     } // end updateDatabase
+
+    public String toCSVLine() {
+        return id + "," + username + "," + password + "," + name + "," + weight + "," + weightMeasurement + "," + height + "," + goal + "," + activityLevel;
+    } // end toCSVLine
 } // close class
