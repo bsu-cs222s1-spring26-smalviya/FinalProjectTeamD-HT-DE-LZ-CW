@@ -18,11 +18,9 @@ public class FoodItem {
     private double carbs;
     private double cholesterol;
 
-
     public FoodItem() {
-        //For testing purposes, the food will always be rice...
-        //Numbers will also be hard coded for now
-        this.foodName = parser.pa
+        this.foodName = "Rice";
+        this.fdcID = 0;
         this.calories = 130.0;
         this.potassium = 0.0;
         this.iron = 0.0;
@@ -37,6 +35,10 @@ public class FoodItem {
 
     public String getFoodName() {
         return foodName;
+    }
+
+    public int getFdcID() {
+        return fdcID;
     }
 
     public double getCalories() {
