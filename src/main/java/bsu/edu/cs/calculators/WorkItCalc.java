@@ -1,5 +1,4 @@
 package bsu.edu.cs.calculators;
-
 public class WorkItCalc {
     public int CalculateCaloricNeeds(double weight, double height,int age, String goal, int activityLevel,String gender){
         double caloricNeeds = 0;
@@ -21,5 +20,4 @@ public class WorkItCalc {
                 caloricNeeds = caloricNeeds;
         }
         return (int)caloricNeeds;
-    }
 }
