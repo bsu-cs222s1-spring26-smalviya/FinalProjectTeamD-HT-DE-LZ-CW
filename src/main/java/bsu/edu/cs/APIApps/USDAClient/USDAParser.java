@@ -22,6 +22,9 @@ public class USDAParser {
             throw new RuntimeException("Failed to read JSON file: " + filePath, e);
         }
     }
+    public USDAParser(){
+        this("src/main/resources/USDAData/itemInfo.json");
+    }
 
     private double getNutrientAmount(int nutrientId) throws JSONException {
         String nutrientKey = "nutrient";

@@ -1,10 +1,12 @@
 package bsu.edu.cs.foodData;
 
+import bsu.edu.cs.APIApps.USDAClient.USDAParser;
+
 public class FoodItem {
 
-    //Creating private variables so data won't conflict with other classes
-    //For now hard coding for testing reasons
+    private USDAParser parser = new USDAParser();
     private String foodName;
+    private int fdcID;
     private double calories;
     private double potassium;
     private double iron;
@@ -16,10 +18,11 @@ public class FoodItem {
     private double carbs;
     private double cholesterol;
 
-    public FoodItem(String foodName) {
+
+    public FoodItem() {
         //For testing purposes, the food will always be rice...
         //Numbers will also be hard coded for now
-        this.foodName = "rice";
+        this.foodName = parser.pa
         this.calories = 130.0;
         this.potassium = 0.0;
         this.iron = 0.0;

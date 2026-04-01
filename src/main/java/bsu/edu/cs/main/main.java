@@ -1,6 +1,6 @@
 package bsu.edu.cs.main;
 
-/*import bsu.edu.cs.foodData.DataQuery;
+import bsu.edu.cs.foodData.DataQuery;
 import bsu.edu.cs.user.User;
 
 import java.io.FileWriter;
@@ -22,7 +22,7 @@ public class main {
         }
         runLogger();
     }
-
+/*
     // Create new user and save to file
     //This will go into another class called interface later on.
     private static void isNewUser(String username,String password) {
@@ -84,4 +84,4 @@ public class main {
                 "3. Get user food log for today\n" +
                 "Input number here (or type 0 to quit): ";
     }
-}*/
+*/}
