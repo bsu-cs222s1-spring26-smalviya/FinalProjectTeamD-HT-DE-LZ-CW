@@ -1,5 +1,6 @@
 plugins {
     id("java")
+    id("application")
     //OpenAPIGenerator for USDA
     id("org.openapi.generator") version "7.21.0"
 }
@@ -65,6 +66,7 @@ tasks.compileJava {
     dependsOn(tasks.openApiGenerate)
 }
 
+
 tasks.test {
     useJUnitPlatform()
     // Passes the key to your JUnit tests
@@ -80,4 +82,7 @@ tasks.withType<JavaExec> {
     //setProperty("usdaKey", usdaKeyProperty)
     //extra["usdaKey"] = usdaKeyProperty
 
+}
+application {
+    mainClass.set("bsu.edu.cs.Main.main")
 }

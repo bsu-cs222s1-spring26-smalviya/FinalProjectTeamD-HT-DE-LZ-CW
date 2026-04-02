@@ -18,7 +18,7 @@ public class DataQuery {
     //I want this to display the data from a specific item that the user is looking at,
     //I have the item variable stored here locally so if we need to, we can call different things without
     //having to mention the item as a parameter every time
-    private USDAListParser listParser = new USDAListParser();
+    private final USDAListParser listParser = new USDAListParser();
     public DataQuery(int userID){
         setUserLogString(userID);
     }
