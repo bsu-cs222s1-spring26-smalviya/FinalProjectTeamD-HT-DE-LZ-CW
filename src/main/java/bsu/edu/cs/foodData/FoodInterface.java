@@ -59,24 +59,22 @@ public class FoodInterface {
             String foodName = scanner.nextLine();
             System.out.println(dataQuery.searchFood(foodName));
             System.out.println("Which food item is the one you are looking for? (1-5) type 0 to search again");
-            String choice = scanner.nextLine();
+            int choice = Integer.parseInt(scanner.nextLine());
+            int numOfOptions = dataQuery.getNumberOfFoodOptions();
             int fdcID;
-
-            switch (choice){
-                case "1","2","3","4","5":
-                    fdcID = dataQuery.getFoodID(Integer.parseInt(choice));
-                    FoodItem newItem = new FoodItem(fdcID);
-                    LogTime timer = new LogTime();
-                    String currentTime = timer.getCurrentTime();
-                    timer.parseTimeStringIntoVariables(currentTime);
-                    dataQuery.logFoodItem(timer.getMonth(), timer.getDay(), timer.getYear(), newItem);
-                    System.out.println("Logged at: " + timer.makeTimeReadable());
-                    logNewFoodIsRunning = false;
-                    break;
-                case "0":
-                    break;
-                default:
-                    System.out.println("Invalid input. Try again!");
+            if(choice > 0 && choice<=numOfOptions){
+                fdcID = dataQuery.getFoodID(choice);
+                FoodItem newItem = new FoodItem(fdcID);
+                LogTime timer = new LogTime();
+                String currentTime = timer.getCurrentTime();
+                timer.parseTimeStringIntoVariables(currentTime);
+                dataQuery.logFoodItem(timer.getMonth(), timer.getDay(), timer.getYear(), newItem);
+                System.out.println("Logged at: " + timer.makeTimeReadable());
+                logNewFoodIsRunning = false;
+            }else if (choice == 0){
+                System.out.println("Returning to search...");
+            }else {
+                System.out.println("Invalid input. Try again!");
             }
         }
     }
