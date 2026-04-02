@@ -1,7 +1,10 @@
 package bsu.edu.cs.main;
 
 import bsu.edu.cs.foodData.DataQuery;
+import bsu.edu.cs.foodData.FoodInterface;
 import bsu.edu.cs.user.User;
+import bsu.edu.cs.user.UserInterface;
+import org.json.JSONException;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -11,16 +14,35 @@ public class main {
 
     static private User user;
     static private final Scanner scanner = new Scanner(System.in);
-    static private DataQuery dataQuery = new DataQuery();
+    static private UserInterface userInterface = new UserInterface();
+    static private FoodInterface foodInterface;
     public static void main(String[] args) {
-        System.out.println("Hi welcome to WorkItOut, type in your username: ");
-        String username = scanner.nextLine();
-        System.out.println("Enter your password:");
-        String password = scanner.nextLine();
-        if (user==null){
-            isNewUser(username,password);
+        userInterface.logInScreen();
+        user = new User(userInterface.getUserID());
+        foodInterface = new FoodInterface(userInterface.getUserID());
+        runProgram();
+        System.out.println("Would you like to open foodLogger or user settings? (1 or 2)");
+    }
+
+    private static void runProgram() throws JSONException, IOException {
+        boolean running = true;
+        while(running){
+            System.out.println("Would you like to... \n(1) open foodLogger \n(2) user settings?\n(3) quit");
+            String response = scanner.nextLine();
+            switch (response){
+                case "1":
+                    foodInterface.openFoodMenu();
+                    break;
+                case "2":
+                    userInterface.openSettingsMenu();
+                    break;
+                case "3":
+                    running = false;
+                    break;
+                default:
+                    System.out.println("Sorry, invalid input. Try Again!");
+            }
         }
-        runLogger();
     }
 /*
     // Create new user and save to file

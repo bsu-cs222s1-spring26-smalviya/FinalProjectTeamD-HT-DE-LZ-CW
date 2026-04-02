@@ -1,7 +1,11 @@
 package bsu.edu.cs.foodData;
 
 import bsu.edu.cs.APIApps.USDAClient.USDAParser;
-import bsu.edu.cs.APIApps.USDAClient.USDAListParser;
+
+import bsu.edu.cs.APIApps.USDAClient.USDAToJsonClient;
+import org.json.JSONException;
+
+import java.io.IOException;
 
 public class FoodItem {
 
@@ -12,22 +16,27 @@ public class FoodItem {
     private double calories;
     private double potassium;
     private double iron;
-    private double fat;
+    private double satFat;
+    private double unSatFat;
     private double protein;
     private double calcium;
     private double sugar;
     private double fiber;
     private double carbs;
     private double cholesterol;
-
-    public FoodItem() {
+    public FoodItem(int fdcID) throws JSONException, IOException {
+        //For testing purposes, the food will always be rice...
+        //Numbers will also be hard coded for now
+        USDAToJsonClient client = new USDAToJsonClient();
+        client.getFoodItemJson(fdcID);
         try {
-            this.foodName = listParser.parseForNameofFood(1);
-            this.fdcID = listParser.parseForFDCID(1);
+            this.foodName = parser.parseForName();
+            this.fdcID = fdcID;
             this.calories = parser.parseForCalories();
             this.potassium = parser.parseForPotassium();
             this.iron = parser.parseForIron();
-            this.fat = parser.parseForSatFat() + parser.parseForUnSatFat();
+            this.satFat = parser.parseForSatFat();
+            this.unSatFat = parser.parseForUnSatFat();
             this.protein = parser.parseForProtein();
             this.calcium = parser.parseForCalcium();
             this.sugar = parser.parseForSugar();
@@ -40,7 +49,9 @@ public class FoodItem {
             this.calories = 130.0;
             this.potassium = 0.0;
             this.iron = 0.0;
-            this.fat = 0.0;
+
+            this.satFat = 0.0;
+            this.unSatFat =0.0;
             this.protein = 2.7;
             this.calcium = 0.0;
             this.sugar = 0.0;
@@ -70,9 +81,11 @@ public class FoodItem {
         return iron;
     }
 
-    public double getFat() {
-        return fat;
+    public double getUnSatFat() {
+        return unSatFat;
     }
+
+    public double getSatFat() { return satFat;}
 
     public double getProtein() {
         return protein;
@@ -99,6 +112,18 @@ public class FoodItem {
     }
 
     public String getNutrition() {
-        return foodName + "\nCalories: " + calories + "\nProtein: " + protein + "g\nCarbs: " + carbs + "g\nFat: " + fat + "g";
+        return foodName + "\nCalories: " + calories + "\nProtein: " + protein + "g\nCarbs: " + carbs
+                + "g\nUnsaturated Fat: " + unSatFat + "g";
+    }
+
+//    public void changeMacrosWithWeight(double weight){
+//
+//    }
+    public int getFdcID() {
+        return fdcID;
+    }
+
+    public String getName() {
+        return foodName;
     }
 }
