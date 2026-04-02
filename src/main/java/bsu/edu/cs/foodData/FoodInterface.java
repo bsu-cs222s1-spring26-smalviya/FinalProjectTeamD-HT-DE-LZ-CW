@@ -1,22 +1,26 @@
 package bsu.edu.cs.foodData;
 
+import bsu.edu.cs.APIApps.USDAClient.USDAListParser;
+import bsu.edu.cs.APIApps.USDAClient.USDAToJsonClient;
 import bsu.edu.cs.foodData.DataQuery;
 import bsu.edu.cs.foodData.FoodItem;
 import bsu.edu.cs.foodData.LogTime;
+import org.json.JSONException;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class FoodInterface {
 
-    private DataQuery dataQuery;
-    private Scanner scanner;
+    private final DataQuery dataQuery;
+    private final Scanner scanner;
 
-    public FoodInterface() {
-        this.dataQuery = new DataQuery();
+    public FoodInterface(int userID) {
+        this.dataQuery = new DataQuery(userID);
         this.scanner = new Scanner(System.in);
     }
 
-    public void openFoodMenu() {
+    public void openFoodMenu() throws JSONException, IOException {
         boolean running = true;
 
         while (running) {
@@ -48,20 +52,35 @@ public class FoodInterface {
         }
     }
 
-    private void logNewFood() {
-        System.out.print("\nEnter the name of the food you ate: ");
-        String foodName = scanner.nextLine();
+    private void logNewFood() throws JSONException, IOException {
+        boolean logNewFoodIsRunning = true;
+        while(logNewFoodIsRunning) {
+            System.out.print("\nEnter the name of the food you ate: ");
+            String foodName = scanner.nextLine();
+            System.out.println(dataQuery.searchFood(foodName));
+            System.out.println("Which food item is the one you are looking for? (1-5) type 0 to search again");
+            String choice = scanner.nextLine();
+            int fdcID;
 
-        FoodItem newItem = new FoodItem(foodName);
-
-        LogTime timer = new LogTime();
-        String currentTime = timer.getCurrentTime();
-        timer.parseTimeStringIntoVariables(currentTime);
-
-        dataQuery.logFoodItem(timer.getMonth(), timer.getDay(), timer.getYear(), newItem);
-
-        System.out.println("Logged at: " + timer.makeTimeReadable());
+            switch (choice){
+                case "1","2","3","4","5":
+                    fdcID = dataQuery.getFoodID(Integer.parseInt(choice));
+                    FoodItem newItem = new FoodItem(fdcID);
+                    LogTime timer = new LogTime();
+                    String currentTime = timer.getCurrentTime();
+                    timer.parseTimeStringIntoVariables(currentTime);
+                    dataQuery.logFoodItem(timer.getMonth(), timer.getDay(), timer.getYear(), newItem);
+                    System.out.println("Logged at: " + timer.makeTimeReadable());
+                    logNewFoodIsRunning = false;
+                    break;
+                case "0":
+                    break;
+                default:
+                    System.out.println("Invalid input. Try again!");
+            }
+        }
     }
+
 
     private void viewTodayLog() {
         LogTime timer = new LogTime();

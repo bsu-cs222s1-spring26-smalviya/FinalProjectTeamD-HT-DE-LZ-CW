@@ -123,4 +123,8 @@ public class USDAParser {
         int cholesterolNutrientId = 1253;
         return getNutrientAmount(cholesterolNutrientId);
     }
+    public String parseForName() throws JSONException {
+        String descriptionKey = "description";
+        return sourceJson.getString(descriptionKey);
+    }
 }

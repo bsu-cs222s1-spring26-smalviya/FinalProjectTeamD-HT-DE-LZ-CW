@@ -36,6 +36,10 @@ public class User {
         this.gender = gender;
     } // end User
 
+    public User(int userID) {
+    }
+
+
     // getters for all variables
     public int getId() { return id; }
     public String getUsername() { return username; }
