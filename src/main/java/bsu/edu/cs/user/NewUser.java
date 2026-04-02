@@ -4,11 +4,33 @@ import java.io.*;
 
 public class NewUser {
 
+    private final String filePath = "src/main/resources/UserData/UserDatabase.csv";
+
     public boolean createNewUser(User user) {
+        if (usernameExists(user.getUsername())) {
+            return false;
+        } // end if
+
         saveToDatabase(user);
         createUserLog(user);
         return true;
     } // end createNewUser
+
+    private boolean usernameExists(String username) {
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+            br.readLine();
+
+            String line;
+            while((line = br.readLine()) != null) {
+                if (line.split(",")[1].equals(username)) {
+                    return true;
+                } // end if
+            } // end while
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } // end try/catch
+        return false;
+    } // end usernameExists
 
     private void saveToDatabase(User user) {
         try (FileWriter writer = new FileWriter("src/main/resources/UserData/UserDatabase.csv", true)) {
