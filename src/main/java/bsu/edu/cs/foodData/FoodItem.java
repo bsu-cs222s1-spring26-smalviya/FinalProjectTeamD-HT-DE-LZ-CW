@@ -1,10 +1,12 @@
 package bsu.edu.cs.foodData;
 
 import bsu.edu.cs.APIApps.USDAClient.USDAParser;
+import bsu.edu.cs.APIApps.USDAClient.USDAListParser;
 
 public class FoodItem {
 
     private USDAParser parser = new USDAParser();
+    private USDAListParser listParser = new USDAListParser();
     private String foodName;
     private int fdcID;
     private double calories;
@@ -18,25 +20,42 @@ public class FoodItem {
     private double carbs;
     private double cholesterol;
 
-
     public FoodItem() {
-        //For testing purposes, the food will always be rice...
-        //Numbers will also be hard coded for now
-        this.foodName = parser.pa
-        this.calories = 130.0;
-        this.potassium = 0.0;
-        this.iron = 0.0;
-        this.fat = 0.0;
-        this.protein = 2.7;
-        this.calcium = 0.0;
-        this.sugar = 0.0;
-        this.fiber = 0.0;
-        this.carbs = 28.2;
-        this.cholesterol = 0.0;
+        try {
+            this.foodName = listParser.parseForNameofFood(1);
+            this.fdcID = listParser.parseForFDCID(1);
+            this.calories = parser.parseForCalories();
+            this.potassium = parser.parseForPotassium();
+            this.iron = parser.parseForIron();
+            this.fat = parser.parseForSatFat() + parser.parseForUnSatFat();
+            this.protein = parser.parseForProtein();
+            this.calcium = parser.parseForCalcium();
+            this.sugar = parser.parseForSugar();
+            this.fiber = parser.parseForFiber();
+            this.carbs = parser.parseForCarbs();
+            this.cholesterol = parser.parseForCholesterol();
+        } catch (Exception e) {
+            this.foodName = "Rice";
+            this.fdcID = 0;
+            this.calories = 130.0;
+            this.potassium = 0.0;
+            this.iron = 0.0;
+            this.fat = 0.0;
+            this.protein = 2.7;
+            this.calcium = 0.0;
+            this.sugar = 0.0;
+            this.fiber = 0.0;
+            this.carbs = 28.2;
+            this.cholesterol = 0.0;
+        }
     }
 
     public String getFoodName() {
         return foodName;
+    }
+
+    public int getFdcID() {
+        return fdcID;
     }
 
     public double getCalories() {
