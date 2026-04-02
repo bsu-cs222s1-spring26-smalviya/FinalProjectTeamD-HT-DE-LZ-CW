@@ -26,6 +26,10 @@ public class USDAListParser {
         USDAToJsonClient client = new USDAToJsonClient();
         client.getFoodListJson(foodName);
     }
+    public int getFoodCount() throws JSONException {
+        if (!fileObj.has("foods")) return 0;
+        return fileObj.getJSONArray("foods").length();
+    }
 
     public int parseForNumberOfPages() throws JSONException {
         return fileObj.getJSONArray("pageList").length();

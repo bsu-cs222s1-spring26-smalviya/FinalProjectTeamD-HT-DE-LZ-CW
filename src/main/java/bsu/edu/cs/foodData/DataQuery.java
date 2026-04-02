@@ -143,12 +143,24 @@ public class DataQuery {
     public String searchFood(String foodName) throws JSONException, IOException {
         listParser.searchForFoods(foodName);
         String listOfFood = "";
-        for(int i = 1; i<=5; i++){
-            listOfFood.concat(String.format("%d:\nName: %s\nBrand: %s\nCalories per serving:%d\n\n",
-                    i,listParser.parseForNameofFood(i),listParser.parseForBrandNameOfFood(i),
-                    (int)listParser.parseForCaloriesOfFood(i)));
+        int numOfOptions = getNumberOfFoodOptions();
+        if (numOfOptions<=0){
+            listOfFood = "No foods under that name found.";
+        }else {
+            for (int i = 1; i <= numOfOptions; i++) {
+                listOfFood.concat(String.format("%d:\nName: %s\nBrand: %s\nCalories per serving:%d\n\n",
+                        i, listParser.parseForNameofFood(i), listParser.parseForBrandNameOfFood(i),
+                        (int) listParser.parseForCaloriesOfFood(i)));
+            }
         }
         return listOfFood;
+    }
+    public int getNumberOfFoodOptions(){
+        try {
+            return listParser.getFoodCount();
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
     }
     public int getFoodID(int choice) throws JSONException {
         return (int)listParser.parseForFDCID(choice);
