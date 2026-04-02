@@ -1,5 +1,6 @@
 package bsu.edu.cs.foodData;
 
+import bsu.edu.cs.APIApps.USDAClient.USDAListParser;
 import bsu.edu.cs.APIApps.USDAClient.USDAParser;
 
 import bsu.edu.cs.APIApps.USDAClient.USDAToJsonClient;
@@ -10,7 +11,6 @@ import java.io.IOException;
 public class FoodItem {
 
     private USDAParser parser = new USDAParser();
-    private USDAListParser listParser = new USDAListParser();
     private String foodName;
     private int fdcID;
     private double calories;
@@ -119,9 +119,6 @@ public class FoodItem {
 //    public void changeMacrosWithWeight(double weight){
 //
 //    }
-    public int getFdcID() {
-        return fdcID;
-    }
 
     public String getName() {
         return foodName;

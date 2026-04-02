@@ -72,5 +72,6 @@ public class NewUser {
         } catch (IOException e) {
             throw new RuntimeException("Failed to write user database", e);
         } // end try/catch
+        return maxId;
     } // end getNextUserId
 } // close class
