@@ -14,7 +14,7 @@ public class DataQueryTest {
         String foodName = "rice";
         String displayDataString = dataQuery.displayFoodData("rice");
         String expectedDataString = "Calories: 130 kCal\n" +
-                "Protein: 2.7 grams\nCarbs: 28.2 grams";
+                "Protein: 2.7 grams\nCarbs: 28.2 grams\nTotal Fat:";
         assertEquals(expectedDataString,displayDataString);
     }
     @Test
