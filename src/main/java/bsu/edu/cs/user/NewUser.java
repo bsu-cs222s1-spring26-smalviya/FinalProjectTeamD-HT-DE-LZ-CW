@@ -47,4 +47,30 @@ public class NewUser {
             throw new RuntimeException("Failed to write user log", e);
         } // end try/catch
     } // end createUserLog
+
+    private int getNextUserId(String filePath) {
+        int maxId = 0;
+
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+            String line;
+
+            while ((line = br.readLine()) != null) {
+                String[] data = line.split(",");
+
+                if (data.length > 0) {
+                    try {
+                        int id = Integer.parseInt(data[0]);
+
+                        if (id > maxId) {
+                            maxId = id;
+                        } // end if
+                    } catch (NumberFormatException e) {
+                        // Skip header or bad rows
+                    } // end try/catch
+                } // end if
+            } // end while
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to write user database", e);
+        } // end try/catch
+    } // end getNextUserId
 } // close class
