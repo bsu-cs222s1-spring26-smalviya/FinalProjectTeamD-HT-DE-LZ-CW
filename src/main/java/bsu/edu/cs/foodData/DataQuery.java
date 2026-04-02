@@ -18,7 +18,7 @@ public class DataQuery {
     //I want this to display the data from a specific item that the user is looking at,
     //I have the item variable stored here locally so if we need to, we can call different things without
     //having to mention the item as a parameter every time
-    private USDAListParser listParser = new USDAListParser();
+    private final USDAListParser listParser = new USDAListParser();
     public DataQuery(int userID){
         setUserLogString(userID);
     }
@@ -144,12 +144,13 @@ public class DataQuery {
         listParser.searchForFoods(foodName);
         String listOfFood = "";
         for(int i = 1; i<=5; i++){
-            listOfFood.concat(String.format("%d:\nName: %s\nBrand: %s\nCalories per serving:%d\n\n",
+            listOfFood += String.format("%d:\nName: %s\nBrand: %s\nCalories per serving:%d\n\n",
                     i,listParser.parseForNameofFood(i),listParser.parseForBrandNameOfFood(i),
-                    (int)listParser.parseForCaloriesOfFood(i)));
+                    (int)listParser.parseForCaloriesOfFood(i));
         }
         return listOfFood;
     }
+
     public int getFoodID(int choice) throws JSONException {
         return (int)listParser.parseForFDCID(choice);
 

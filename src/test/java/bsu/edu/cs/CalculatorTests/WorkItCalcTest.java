@@ -5,11 +5,11 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class WorkItCalcTest {
-    @Test
-    public void testMaleCaloricNeeds(){
-        WorkItCalc calc = new WorkItCalc();
-        int expected,actual;
-
-        Assertions.assertEquals(expected,actual);
-    }
+//    @Test
+//    public void testMaleCaloricNeeds(){
+//        WorkItCalc calc = new WorkItCalc();
+//        int expected,actual;
+//
+//        Assertions.assertEquals(expected,actual);
+//    }
 }

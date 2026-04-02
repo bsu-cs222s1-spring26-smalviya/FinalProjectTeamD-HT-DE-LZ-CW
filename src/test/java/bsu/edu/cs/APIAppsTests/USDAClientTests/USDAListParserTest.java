@@ -55,6 +55,7 @@ public class USDAListParserTest {
         USDAListParser listParser = new USDAListParser("src/test/resources/red+applesList.json");
         String expected = "GOURMET NUT.";
         String actual = listParser.parseForBrandNameOfFood(3);
+        System.out.println();
         Assertions.assertEquals(expected,actual);
     }
     @Test
