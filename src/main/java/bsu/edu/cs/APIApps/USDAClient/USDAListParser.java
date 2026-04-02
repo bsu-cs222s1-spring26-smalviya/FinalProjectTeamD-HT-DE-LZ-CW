@@ -22,6 +22,10 @@ public class USDAListParser {
     public USDAListParser(){
         this("src/main/resources/USDAData/itemQueryList.json");
     }
+    public void searchForFoods(String foodName) throws JSONException, IOException {
+        USDAToJsonClient client = new USDAToJsonClient();
+        client.getFoodListJson(foodName);
+    }
 
     public int parseForNumberOfPages() throws JSONException {
         return fileObj.getJSONArray("pageList").length();

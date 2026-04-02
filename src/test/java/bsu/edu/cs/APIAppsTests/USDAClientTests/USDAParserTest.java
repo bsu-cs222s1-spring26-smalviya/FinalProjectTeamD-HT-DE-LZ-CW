@@ -108,4 +108,11 @@ public class USDAParserTest {
         double expected = 0.0; // not present in this food's data
         Assertions.assertEquals(expected, actual);
     }
+    @Test
+    public void parseForNameTest() throws JSONException {
+        USDAParser parser = new USDAParser(testingFile);
+        String actual = parser.parseForName();
+        String expected = "Apples, red delicious, with skin, raw";
+        Assertions.assertEquals(expected,actual);
+    }
 }
