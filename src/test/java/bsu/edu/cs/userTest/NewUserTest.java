@@ -16,9 +16,22 @@ public class NewUserTest {
     @Test
     void shouldCreateNewUserSuccessfully() {
         NewUser newUser = new NewUser();
-        User user = new User(1000, "Username", "Password", "Name", 180, "LBS", 70, "LOSE", 3);
+        User user = new User(1000, "Username", "Password", "Name", 180, "lbs", 70, "lose", 3, "male");
         boolean result = newUser.createNewUser(user);
 
         assertTrue(result);
+    } // end test
+
+    @Test
+    void shouldRejectDuplicateUsername() {
+        NewUser newUser = new NewUser();
+
+        User user1 = new User(2000., "duplicateUser", "pass", "Name", 180, "lbs", 70, "lose", 3, "male");
+        User user2 = new User(2000., "duplicateUser", "pass", "Name", 180, "lbs", 70, "lose", 3, "male");
+
+        newUser.createNewUser(user1);
+        boolean result = newUser.createNewUser(user2);
+
+        assertFalse(result);
     } // end test
 } // close class

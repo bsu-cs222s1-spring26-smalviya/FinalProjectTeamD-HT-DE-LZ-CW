@@ -8,7 +8,7 @@ public class UserTest {
 
     @Test
     void shouldCreateUser() {
-        User user = new User(1, "JohnSmith1", "Password123", "John", 180, "LBS", 70, "LOSE", 3);
+        User user = new User(1, "JohnSmith1", "Password123", "John", 180, "lbs", 70, "lose", 3,  "male");
 
         assertEquals(1, user.getId());
         assertEquals("JohnSmith1", user.getUsername());
@@ -16,7 +16,7 @@ public class UserTest {
 
     @Test
     void shouldUpdateWeight() {
-        User user = new User(1, "u", "p", "n", 0, "LBS", 0, "LOSE", 1);
+        User user = new User(1, "u", "p", "n", 0, "lbs", 0, "lose", 1, "male");
 
         user.setWeight(5);
 
@@ -25,16 +25,16 @@ public class UserTest {
 
     @Test
     void shouldUpdateGoal() {
-        User user = new User(1, "u", "p", "n", 0, "LBS", 0, "LOSE", 1);
+        User user = new User(1, "u", "p", "n", 0, "lbs", 0, "lose", 1, "male");
 
-        user.setGoal("GAIN");
+        user.setGoal("gain");
 
-        assertEquals("GAIN", user.getGoal());
+        assertEquals("gain", user.getGoal());
     } // end test
 
     @Test
     void shouldNotCrashWhenUpdatingDatabase() {
-        User user = new User(1, "u", "p", "n", 0, "LBS", 0, "LOSE", 1);
+        User user = new User(1, "u", "p", "n", 0, "lbs", 0, "lose", 1, "male");
 
         assertDoesNotThrow(() -> user.setWeight(190));
     } // end test
