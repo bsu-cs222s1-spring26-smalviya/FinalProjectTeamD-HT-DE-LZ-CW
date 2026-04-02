@@ -15,7 +15,7 @@ public class main {
     static private final UserInterface userInterface = new UserInterface();
     static private FoodInterface foodInterface;
 
-    public void main(String[] args){
+    public static void main(String[] args){
         userInterface.logInScreen();
         user = new User(userInterface.getUserID());
         foodInterface = new FoodInterface(userInterface.getUserID());
