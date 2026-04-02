@@ -1,2 +1,2 @@
-month,day,year,item,calories,postassium,iron,fat,protein,calcium,sugar,fiber,carbs,cholesterol
-12,07,25,rice,130,0,0,0,2.7,0,0,0,28.2,0
+month,day,year,timeString,itemName,fdcID,calories,potassium,iron,unSatFat,satFat,protein,calcium,sugar,fiber,carbs,cholesterol,weight,measurement
+12,07,25,12:00,"RED APPLES ORGANIC APPLE CHIPS, RED APPLES",2422644,130,0,0,0,2.7,0,0,0,28.2,0,28,g
