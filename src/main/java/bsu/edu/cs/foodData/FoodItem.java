@@ -10,7 +10,7 @@ import java.io.IOException;
 
 public class FoodItem {
 
-    private USDAParser parser = new USDAParser();
+    private USDAParser parser;
     private String foodName;
     private int fdcID;
     private double calories;
@@ -29,6 +29,7 @@ public class FoodItem {
         //Numbers will also be hard coded for now
         USDAToJsonClient client = new USDAToJsonClient();
         client.getFoodItemJson(fdcID);
+        parser = new USDAParser();
         try {
             this.foodName = parser.parseForName();
             this.fdcID = fdcID;

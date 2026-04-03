@@ -7,6 +7,7 @@ import bsu.edu.cs.foodData.FoodItem;
 import bsu.edu.cs.foodData.LogTime;
 import org.json.JSONException;
 
+import javax.print.attribute.IntegerSyntax;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -59,7 +60,13 @@ public class FoodInterface {
             String foodName = scanner.nextLine();
             System.out.println(dataQuery.searchFood(foodName));
             System.out.println("Which food item is the one you are looking for? (1-5) type 0 to search again");
-            int choice = Integer.parseInt(scanner.nextLine());
+            int choice = -1;
+            try {
+                choice = Integer.parseInt(scanner.nextLine());
+            } catch (NumberFormatException numberFormatException){
+                //System.out.println("Not a number!");
+                continue;
+            }
             int numOfOptions = dataQuery.getNumberOfFoodOptions();
             int fdcID;
             if(choice > 0 && choice<=numOfOptions){
@@ -84,9 +91,13 @@ public class FoodInterface {
         LogTime timer = new LogTime();
         timer.parseTimeStringIntoVariables(timer.getCurrentTime());
 
-        System.out.println("\nRetrieving log for " + timer.makeTimeReadable().substring(0, 10) + "...");
+        System.out.println("\nRetrieving log for " + timer.makeTimeReadable().substring(0, 10) + "...\n");
 
         String logData = dataQuery.grabUserLogForDay(timer.getMonth(), timer.getDay(), timer.getYear());
         System.out.println(logData);
     }
+//    private void viewLogOn(int month,int day,int year){
+//        LogTime timer = new LogTime();
+//        timer
+//    }
 }

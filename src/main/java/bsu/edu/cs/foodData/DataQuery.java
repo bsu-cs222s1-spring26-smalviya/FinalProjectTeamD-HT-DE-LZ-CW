@@ -142,13 +142,13 @@ public class DataQuery {
 
     public String searchFood(String foodName) throws JSONException, IOException {
         listParser.searchForFoods(foodName);
-        String listOfFood = "";
+        String listOfFood = "options:\n";
         int numOfOptions = getNumberOfFoodOptions();
-        if (numOfOptions<=0){
+        if (numOfOptions<1){
             listOfFood = "No foods under that name found.";
         }else {
             for (int i = 1; i <= numOfOptions; i++) {
-                listOfFood.concat(String.format("%d:\nName: %s\nBrand: %s\nCalories per serving:%d\n\n",
+                listOfFood = listOfFood.concat(String.format("%d:\nName: %s\nBrand: %s\nCalories per serving:%d\n\n",
                         i, listParser.parseForNameofFood(i), listParser.parseForBrandNameOfFood(i),
                         (int) listParser.parseForCaloriesOfFood(i)));
             }
