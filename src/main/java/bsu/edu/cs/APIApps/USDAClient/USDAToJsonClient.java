@@ -19,6 +19,8 @@ public class USDAToJsonClient {
     private final String[] dataType = new String[]{"Branded"};
     //There are [Branded,FNDDS,SR Legacy,Experimental Foods,Foundation Foods]
     private final String format = "full";
+    private String foodItemJsonFile = "src/main/resources/USDAData/itemInfo.json";
+    private String listOfFoodsJsonFile = "src/main/resources/USDAData/itemQueryList.json";
     public USDAToJsonClient() {
          apiKey = System.getProperty("usdaKey");
     }
@@ -33,7 +35,7 @@ public class USDAToJsonClient {
             String json = new String(inputStream.readAllBytes(), StandardCharsets.UTF_8);
 
             // Write to itemQueryList.json
-            Files.writeString(Path.of("src/main/resources/USDAData/itemQueryList.json"), json);
+            Files.writeString(Path.of(listOfFoodsJsonFile), json);
         }
     }
 
@@ -47,7 +49,7 @@ public class USDAToJsonClient {
             String json = new String(inputStream.readAllBytes(), StandardCharsets.UTF_8);
 
             // Write to itemInfo.json
-            Files.writeString(Path.of("src/main/resources/USDAData/itemInfo.json"), json);
+            Files.writeString(Path.of(foodItemJsonFile), json);
         }
     }
 
@@ -62,7 +64,7 @@ public class USDAToJsonClient {
         String urlString = String.format(
                 "https://api.nal.usda.gov/fdc/v1/foods/search?api_key=%s&dataType=%s&query=%s&pageSize=%d&pageNumber=%d",
                 apiKey,joinedData,encodedTitle,pageSize,pageNumber);
-       // System.out.println(urlString);
+        System.out.println(urlString);
         return urlString;
     }
     public String getURLStringForFoodID(int foodID){
@@ -71,8 +73,15 @@ public class USDAToJsonClient {
         String urlString = String.format(
                 "https://api.nal.usda.gov/fdc/v1/food/%s?api_key=%s&format=%s",
                 encodedTitle,apiKey,format);
-       // System.out.println(urlString);
+        System.out.println(urlString);
         return urlString;
     }
 
+    public void setFoodItemJsonFile(String foodItemJsonFile) {
+        this.foodItemJsonFile = foodItemJsonFile;
+    }
+
+    public void setListOfFoodsJsonFile(String listOfFoodsJsonFile) {
+        this.listOfFoodsJsonFile = listOfFoodsJsonFile;
+    }
 }
