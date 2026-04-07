@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class UserInterface {
 
-//    public void openSettingsMenu(){
+    //    public void openSettingsMenu(){
 //        System.out.println("What would you like to change?:" +
 //                "(1) Username\n" +
 //                "(2) Password\n");
@@ -14,6 +14,63 @@ public class UserInterface {
     private final Scanner scanner = new Scanner(System.in);
     public int getUserID(){
         return userID;
+    }
+
+    public void openSettingsMenu(){
+        User currentUser = new User(userID);
+        boolean accessingSettings = true;
+        while(accessingSettings){
+            System.out.println("What would you like to change?:" +
+                    "\n(1) Name" +
+                    "\n(2) Username" +
+                    "\n(3) Password" +
+                    "\n(4) Weight" +
+                    "\n(5) Height" +
+                    "\n(6) Goal" +
+                    "\n(7) Activity Level" +
+                    "\n(8) Exit settings");
+            String userResponse = scanner.nextLine();
+            switch (userResponse) {
+                case "1":
+                    System.out.println("Type in your new name:");
+                    String newName = scanner.nextLine();
+                    currentUser.setName(newName);
+                    break;
+                case "2":
+                    System.out.println("Type in your new username:");
+                    String newUsername = scanner.nextLine();
+                    currentUser.setUsername(newUsername);
+                    break;
+                case "3":
+                    System.out.println("Type in your new password:");
+                    String newPassword = scanner.nextLine();
+                    currentUser.setPassword(newPassword);
+                    break;
+                case "4":
+                    System.out.println("Type in your new weight in kg:");
+                    double newWeight = Double.parseDouble(scanner.nextLine());
+                    currentUser.setWeight(newWeight);
+                    break;
+                case "5":
+                    System.out.println("Type in your new height:");
+                    double newHeight = Double.parseDouble(scanner.nextLine());
+                    currentUser.setHeight(newHeight);
+                    break;
+                case "6":
+                    String newGoal = getGoal();
+                    currentUser.setGoal(newGoal);
+                    break;
+                case "7":
+                    int newActivityLevel = getActivityLevel();
+                    currentUser.setActivityLevel(newActivityLevel);
+                    break;
+                case "8":
+                    accessingSettings = false;
+                    break;
+                default:
+                    System.out.println("Sorry, please try again!");
+            }
+        }
     }
 
     public void logInScreen(){
