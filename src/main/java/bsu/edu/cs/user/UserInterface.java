@@ -74,12 +74,12 @@ public class UserInterface {
     }
 
     public void logInScreen(){
-        System.out.println("Would you like to:" +
-                "\n(1) Log in" +
-                "\n(2) Sign up");
-        String userResponse = scanner.nextLine();
         boolean accessingResponse = true;
         while(accessingResponse){
+            System.out.println("Would you like to:" +
+                    "\n(1) Log in" +
+                    "\n(2) Sign up");
+            String userResponse = scanner.nextLine();
             switch (userResponse) {
                 case "1":
                     Login login = new Login();
@@ -121,7 +121,6 @@ public class UserInterface {
                     User user = new User(userID,userName,newPassword,name,weight,weightMeasurement,height,goal,activityLevel,gender);
                     NewUser newUser = new NewUser();
                     newUser.createNewUser(user);
-                    accessingResponse = false;
                     break;
                 default:
                     System.out.println("Sorry, please try again!");

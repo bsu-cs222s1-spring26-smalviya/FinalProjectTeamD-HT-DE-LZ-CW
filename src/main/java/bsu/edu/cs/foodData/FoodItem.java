@@ -45,20 +45,8 @@ public class FoodItem {
             this.carbs = parser.parseForCarbs();
             this.cholesterol = parser.parseForCholesterol();
         } catch (Exception e) {
-            this.foodName = "Rice";
-            this.fdcID = 0;
-            this.calories = 130.0;
-            this.potassium = 0.0;
-            this.iron = 0.0;
-
-            this.satFat = 0.0;
-            this.unSatFat =0.0;
-            this.protein = 2.7;
-            this.calcium = 0.0;
-            this.sugar = 0.0;
-            this.fiber = 0.0;
-            this.carbs = 28.2;
-            this.cholesterol = 0.0;
+            e.printStackTrace(); // at minimum, print what went wrong
+            throw new RuntimeException("Failed to build FoodItem for fdcID: " + fdcID, e);
         }
     }
 
