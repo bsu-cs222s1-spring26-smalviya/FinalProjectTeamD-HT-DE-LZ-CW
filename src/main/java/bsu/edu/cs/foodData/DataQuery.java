@@ -18,7 +18,7 @@ public class DataQuery {
     //I want this to display the data from a specific item that the user is looking at,
     //I have the item variable stored here locally so if we need to, we can call different things without
     //having to mention the item as a parameter every time
-    private USDAListParser listParser = new USDAListParser();
+    private final USDAListParser listParser = new USDAListParser();
     public DataQuery(int userID){
         setUserLogString(userID);
     }
@@ -43,51 +43,52 @@ public class DataQuery {
     }
     //Grabs the user log of food for the day mentioned and then returns a string of it.
     public String grabUserLogForDay(int month, int day, int year) {
-
+        StringBuilder log = new StringBuilder();
         try (BufferedReader br = new BufferedReader(new FileReader(userLogString))) {
             br.readLine(); // skip header
 
             String line;
             while ((line = br.readLine()) != null) {
+                if (line.trim().isEmpty()) continue; // skip empty/blank lines
+
                 String[] data = line.split(",");
 
                 int m = Integer.parseInt(data[0]);
+//                System.out.println("Month parsed correctly");
                 int d = Integer.parseInt(data[1]);
+//                System.out.println("day parsed correctly");
                 int y = Integer.parseInt(data[2]);
+//                System.out.println("Year parsed correctly");
 
                 if (m == month && d == day && y == year) {
-
-                    this.item = new FoodItem(Integer.parseInt(data[5]));
-
-                    return String.format(
-                            "Time: %s"+
-                            "%s calories,\n" +
-                            "%s postassium,\n" +
-                            "%s iron,\n" +
-                            "%s unsaturated fat,\n" +
-                            "%s saturated fat,\n"+
-                            "%s protein,\n" +
-                            "%s calcium,\n" +
-                            "%s sugar,\n" +
-                            "%s fiber,\n" +
-                            "%s carbs,\n" +
-                            "%s cholesterol",
-                            data[3],capitalize(data[4]),
-                            data[6],data[7],data[8],data[9],data[10],
-                            data[11],data[12],data[13],data[14],data[15],data[16]
-                    );
+                    log.append(String.format(
+                                "\nTime: %s\n" +
+                                    "Name: %s \n" +
+                                    "%s calories,\n" +
+                                    "%s potassium,\n" +
+                                    "%s iron,\n" +
+                                    "%s unsaturated fat,\n" +
+                                    "%s saturated fat,\n" +
+                                    "%s protein,\n" +
+                                    "%s calcium,\n" +
+                                    "%s sugar,\n" +
+                                    "%s fiber,\n" +
+                                    "%s carbs,\n" +
+                                    "%s cholesterol\n",
+                            data[3], data[4],
+                            data[6], data[7], data[8], data[9], data[10],
+                            data[11], data[12], data[13], data[14], data[15], data[16]
+                    ));
                 }
             }
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (JSONException e) {
-            throw new RuntimeException(e);
         }
 
-        return null;
+        return log.toString();
     }
 
-    public void logFoodItem(int month, int day, int year, FoodItem newItem) {
+    public void logFoodItem(int month, int day, int year,double userWeight, String measurment) {
         // Check if file needs a header written first
         boolean needsHeader = false;
         try (BufferedReader br = new BufferedReader(new FileReader(userLogString))) {
@@ -96,30 +97,32 @@ public class DataQuery {
             needsHeader = true;
         }
 
+
         try (FileWriter fw = new FileWriter(userLogString, true)) {
             if (needsHeader) {
-                fw.write("month,day,year,time,name,fdcID,calories,potassium,iron,unsatFat,satFat,protein,calcium,sugar,fiber,carbs,cholesterol\n");
+                fw.write("month,day,year,time,name,fdcID,calories,potassium,iron,unsatFat,satFat,protein,calcium,sugar,fiber,carbs,cholesterol,weight,measurement\n\n");
             }
 
             LogTime timer = new LogTime();
             String currentTime = timer.getCurrentTime();
-
-            fw.write(String.format("%d,%d,%d,%s,%s,%d,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f\n",
+            fw.write(String.format("\n%d,%d,%d,%s,%s,%d,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%s",
                     month, day, year,
                     currentTime,
-                    newItem.getName(),
-                    newItem.getFdcID(),
-                    newItem.getCalories(),
-                    newItem.getPotassium(),
-                    newItem.getIron(),
-                    newItem.getUnSatFat(),
-                    newItem.getSatFat(),
-                    newItem.getProtein(),
-                    newItem.getCalcium(),
-                    newItem.getSugar(),
-                    newItem.getFiber(),
-                    newItem.getCarbs(),
-                    newItem.getCholesterol()
+                    item.getName(),
+                    item.getFdcID(),
+                    item.getCalories(),
+                    item.getPotassium(),
+                    item.getIron(),
+                    item.getUnSatFat(),
+                    item.getSatFat(),
+                    item.getProtein(),
+                    item.getCalcium(),
+                    item.getSugar(),
+                    item.getFiber(),
+                    item.getCarbs(),
+                    item.getCholesterol(),
+                    userWeight,
+                    measurment
             ));
 
         } catch (IOException e) {
@@ -136,19 +139,27 @@ public class DataQuery {
         userLogString = String.format("src/main/resources/UserData/logs/%dLogData.csv",userID);
     }
 
-    private String capitalize(String str) {
-        return str.substring(0,1).toUpperCase() + str.substring(1);
-    }
-
     public String searchFood(String foodName) throws JSONException, IOException {
         listParser.searchForFoods(foodName);
-        String listOfFood = "";
-        for(int i = 1; i<=5; i++){
-            listOfFood.concat(String.format("%d:\nName: %s\nBrand: %s\nCalories per serving:%d\n\n",
-                    i,listParser.parseForNameofFood(i),listParser.parseForBrandNameOfFood(i),
-                    (int)listParser.parseForCaloriesOfFood(i)));
+        String listOfFood = "options:\n";
+        int numOfOptions = getNumberOfFoodOptions();
+        if (numOfOptions<1){
+            listOfFood = "No foods under that name found.";
+        }else {
+            for (int i = 1; i <= numOfOptions; i++) {
+                listOfFood = listOfFood.concat(String.format("%d:\nName: %s\nBrand: %s\nCalories per serving:%d\n\n",
+                        i, listParser.parseForNameofFood(i), listParser.parseForBrandNameOfFood(i),
+                        (int) listParser.parseForCaloriesOfFood(i)));
+            }
         }
         return listOfFood;
+    }
+    public int getNumberOfFoodOptions(){
+        try {
+            return listParser.getFoodCount();
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
     }
     public int getFoodID(int choice) throws JSONException {
         return (int)listParser.parseForFDCID(choice);

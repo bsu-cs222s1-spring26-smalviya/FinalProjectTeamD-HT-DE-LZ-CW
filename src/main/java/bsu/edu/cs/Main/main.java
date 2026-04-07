@@ -15,10 +15,16 @@ public class main {
     static private final UserInterface userInterface = new UserInterface();
     static private FoodInterface foodInterface;
 
-    public void main(String[] args){
-        userInterface.logInScreen();
+    public static void main(String[] args){
+        boolean isUserLoggedIn = false;
+        while(!isUserLoggedIn) {
+            userInterface.logInScreen();
+            if(userInterface.getUserID() != 0){
+                isUserLoggedIn = true;
+            }
+        }
         user = new User(userInterface.getUserID());
-        foodInterface = new FoodInterface(userInterface.getUserID());
+        foodInterface = new FoodInterface(userInterface.getUserID(),user.getWeight(), user.getWeightMeasurement());
         try {
             runProgram();
         } catch (JSONException e) {
@@ -39,8 +45,7 @@ public class main {
                     foodInterface.openFoodMenu();
                     break;
                 case "2":
-//                    userInterface.openSettingsMenu();
-                    System.out.println("Currently Unavailable");
+                    userInterface.openSettingsMenu();
                     break;
                 case "3":
                     running = false;

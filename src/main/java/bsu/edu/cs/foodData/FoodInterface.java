@@ -7,6 +7,7 @@ import bsu.edu.cs.foodData.FoodItem;
 import bsu.edu.cs.foodData.LogTime;
 import org.json.JSONException;
 
+import javax.print.attribute.IntegerSyntax;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -14,10 +15,14 @@ public class FoodInterface {
 
     private final DataQuery dataQuery;
     private final Scanner scanner;
+    private final double userWeight;
+    private final String userWeightMeasurement;
 
-    public FoodInterface(int userID) {
+    public FoodInterface(int userID, double userWeight, String userWeightMeasurement) {
         this.dataQuery = new DataQuery(userID);
         this.scanner = new Scanner(System.in);
+        this.userWeight = userWeight;
+        this.userWeightMeasurement = userWeightMeasurement;
     }
 
     public void openFoodMenu() throws JSONException, IOException {
@@ -59,24 +64,28 @@ public class FoodInterface {
             String foodName = scanner.nextLine();
             System.out.println(dataQuery.searchFood(foodName));
             System.out.println("Which food item is the one you are looking for? (1-5) type 0 to search again");
-            String choice = scanner.nextLine();
+            int choice = -1;
+            try {
+                choice = Integer.parseInt(scanner.nextLine());
+            } catch (NumberFormatException numberFormatException){
+                //System.out.println("Not a number!");
+                continue;
+            }
+            int numOfOptions = dataQuery.getNumberOfFoodOptions();
             int fdcID;
-
-            switch (choice){
-                case "1","2","3","4","5":
-                    fdcID = dataQuery.getFoodID(Integer.parseInt(choice));
-                    FoodItem newItem = new FoodItem(fdcID);
-                    LogTime timer = new LogTime();
-                    String currentTime = timer.getCurrentTime();
-                    timer.parseTimeStringIntoVariables(currentTime);
-                    dataQuery.logFoodItem(timer.getMonth(), timer.getDay(), timer.getYear(), newItem);
-                    System.out.println("Logged at: " + timer.makeTimeReadable());
-                    logNewFoodIsRunning = false;
-                    break;
-                case "0":
-                    break;
-                default:
-                    System.out.println("Invalid input. Try again!");
+            if(choice > 0 && choice<=numOfOptions){
+                fdcID = dataQuery.getFoodID(choice);
+                dataQuery.setFoodItem(fdcID);
+                LogTime timer = new LogTime();
+                String currentTime = timer.getCurrentTime();
+                timer.parseTimeStringIntoVariables(currentTime);
+                dataQuery.logFoodItem(timer.getMonth(), timer.getDay(), timer.getYear(),userWeight,userWeightMeasurement );
+                System.out.println("Logged at: " + timer.makeTimeReadable());
+                logNewFoodIsRunning = false;
+            }else if (choice == 0){
+                System.out.println("Returning to search...");
+            }else {
+                System.out.println("Invalid input. Try again!");
             }
         }
     }
@@ -86,9 +95,13 @@ public class FoodInterface {
         LogTime timer = new LogTime();
         timer.parseTimeStringIntoVariables(timer.getCurrentTime());
 
-        System.out.println("\nRetrieving log for " + timer.makeTimeReadable().substring(0, 10) + "...");
+        System.out.println("\nRetrieving log for " + timer.makeTimeReadable().substring(0, 10) + "...\n");
 
         String logData = dataQuery.grabUserLogForDay(timer.getMonth(), timer.getDay(), timer.getYear());
         System.out.println(logData);
     }
+//    private void viewLogOn(int month,int day,int year){
+//        LogTime timer = new LogTime();
+//        timer
+//    }
 }

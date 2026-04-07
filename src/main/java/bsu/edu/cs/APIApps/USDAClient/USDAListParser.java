@@ -10,10 +10,11 @@ import java.nio.file.Path;
 
 public class USDAListParser {
     private static JSONObject fileObj;
-
+    private static String file;
     public USDAListParser(String file) {
         try {
-            String content = Files.readString(Path.of(file));
+            this.file = file;
+            String content = Files.readString(Path.of(this.file));
             fileObj = new JSONObject(content);
         } catch (IOException | JSONException error) {
             throw new RuntimeException("Failed to read JSON file: " + file, error);
@@ -22,9 +23,22 @@ public class USDAListParser {
     public USDAListParser(){
         this("src/main/resources/USDAData/itemQueryList.json");
     }
+    public void refreshFileObject(){
+        try {
+            String content = Files.readString(Path.of(this.file));
+            fileObj = new JSONObject(content);
+        } catch (IOException | JSONException e) {
+            throw new RuntimeException(e);
+        }
+    }
     public void searchForFoods(String foodName) throws JSONException, IOException {
         USDAToJsonClient client = new USDAToJsonClient();
         client.getFoodListJson(foodName);
+        refreshFileObject();
+    }
+    public int getFoodCount() throws JSONException {
+        if (!fileObj.has("foods")) return 0;
+        return fileObj.getJSONArray("foods").length();
     }
 
     public int parseForNumberOfPages() throws JSONException {
@@ -50,7 +64,12 @@ public class USDAListParser {
     }
 
     public String parseForBrandNameOfFood(int position) throws JSONException {
-        return fileObj.getJSONArray("foods").getJSONObject(position - 1).getString("brandName");
+         try{
+             return fileObj.getJSONArray("foods").getJSONObject(position - 1).getString("brandName");
+         }
+         catch (JSONException jsonException){
+             return "";
+        }
     }
 
     public double parseForCaloriesOfFood(int position) throws JSONException {
