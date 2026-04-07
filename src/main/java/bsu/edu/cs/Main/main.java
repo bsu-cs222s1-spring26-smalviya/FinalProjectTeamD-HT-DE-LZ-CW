@@ -18,7 +18,7 @@ public class main {
     public static void main(String[] args){
         userInterface.logInScreen();
         user = new User(userInterface.getUserID());
-        foodInterface = new FoodInterface(userInterface.getUserID());
+        foodInterface = new FoodInterface(userInterface.getUserID(),user.getWeight(), user.getWeightMeasurement());
         try {
             runProgram();
         } catch (JSONException e) {

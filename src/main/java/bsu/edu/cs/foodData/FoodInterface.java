@@ -15,10 +15,14 @@ public class FoodInterface {
 
     private final DataQuery dataQuery;
     private final Scanner scanner;
+    private final double userWeight;
+    private final String userWeightMeasurement;
 
-    public FoodInterface(int userID) {
+    public FoodInterface(int userID, double userWeight, String userWeightMeasurement) {
         this.dataQuery = new DataQuery(userID);
         this.scanner = new Scanner(System.in);
+        this.userWeight = userWeight;
+        this.userWeightMeasurement = userWeightMeasurement;
     }
 
     public void openFoodMenu() throws JSONException, IOException {
@@ -71,11 +75,11 @@ public class FoodInterface {
             int fdcID;
             if(choice > 0 && choice<=numOfOptions){
                 fdcID = dataQuery.getFoodID(choice);
-                FoodItem newItem = new FoodItem(fdcID);
+                dataQuery.setFoodItem(fdcID);
                 LogTime timer = new LogTime();
                 String currentTime = timer.getCurrentTime();
                 timer.parseTimeStringIntoVariables(currentTime);
-                dataQuery.logFoodItem(timer.getMonth(), timer.getDay(), timer.getYear(), newItem);
+                dataQuery.logFoodItem(timer.getMonth(), timer.getDay(), timer.getYear(),userWeight,userWeightMeasurement );
                 System.out.println("Logged at: " + timer.makeTimeReadable());
                 logNewFoodIsRunning = false;
             }else if (choice == 0){
