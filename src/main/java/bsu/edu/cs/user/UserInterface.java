@@ -5,11 +5,6 @@ import java.util.Scanner;
 
 public class UserInterface {
 
-    //    public void openSettingsMenu(){
-//        System.out.println("What would you like to change?:" +
-//                "(1) Username\n" +
-//                "(2) Password\n");
-//    }
     private int userID;
     private final Scanner scanner = new Scanner(System.in);
     public int getUserID(){
@@ -90,7 +85,13 @@ public class UserInterface {
                     login.setUsername(username);
                     login.setPassword(password);
                     if(login.getId() == -1){
-                        System.out.println("Sorry, username or password is incorrect, try again!");
+                        System.out.println("Sorry, username or password is incorrect press enter to try again, or 'n'" +
+                                " to return to menu!");
+                        String userReturningResponse = scanner.nextLine();
+                        if (userReturningResponse.toLowerCase().contains("n")){
+                            accessingResponse = false;
+                            break;
+                        }
                     }else{
                         System.out.println("Logging in...");
                         userID = login.getId();

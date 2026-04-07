@@ -54,11 +54,11 @@ public class DataQuery {
                 String[] data = line.split(",");
 
                 int m = Integer.parseInt(data[0]);
-                System.out.println("Month parsed correctly");
+//                System.out.println("Month parsed correctly");
                 int d = Integer.parseInt(data[1]);
-                System.out.println("day parsed correctly");
+//                System.out.println("day parsed correctly");
                 int y = Integer.parseInt(data[2]);
-                System.out.println("Year parsed correctly");
+//                System.out.println("Year parsed correctly");
 
                 if (m == month && d == day && y == year) {
                     log.append(String.format(

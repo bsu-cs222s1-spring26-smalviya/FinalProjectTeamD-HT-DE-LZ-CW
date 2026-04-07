@@ -39,8 +39,7 @@ public class main {
                     foodInterface.openFoodMenu();
                     break;
                 case "2":
-//                    userInterface.openSettingsMenu();
-                    System.out.println("Currently Unavailable");
+                    userInterface.openSettingsMenu();
                     break;
                 case "3":
                     running = false;
