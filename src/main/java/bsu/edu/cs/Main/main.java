@@ -16,7 +16,13 @@ public class main {
     static private FoodInterface foodInterface;
 
     public static void main(String[] args){
-        userInterface.logInScreen();
+        boolean isUserLoggedIn = false;
+        while(!isUserLoggedIn) {
+            userInterface.logInScreen();
+            if(userInterface.getUserID() != 0){
+                isUserLoggedIn = true;
+            }
+        }
         user = new User(userInterface.getUserID());
         foodInterface = new FoodInterface(userInterface.getUserID(),user.getWeight(), user.getWeightMeasurement());
         try {

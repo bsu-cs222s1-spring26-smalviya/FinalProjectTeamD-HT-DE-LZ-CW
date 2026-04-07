@@ -89,7 +89,6 @@ public class UserInterface {
                                 " to return to menu!");
                         String userReturningResponse = scanner.nextLine();
                         if (userReturningResponse.toLowerCase().contains("n")){
-                            accessingResponse = false;
                             break;
                         }
                     }else{

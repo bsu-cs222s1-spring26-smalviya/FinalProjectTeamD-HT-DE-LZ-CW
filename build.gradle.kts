@@ -1,8 +1,15 @@
 plugins {
     id("java")
     id("application")
+    id ("java-library")
     //OpenAPIGenerator for USDA
     id("org.openapi.generator") version "7.21.0"
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
 }
 
 group = "org.example"
