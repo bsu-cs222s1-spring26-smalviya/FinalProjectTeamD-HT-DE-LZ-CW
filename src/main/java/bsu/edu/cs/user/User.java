@@ -32,7 +32,34 @@ public class User {
         this.gender = gender;
     } // end User
 
+    //Gets the User information from the database just using their ID
     public User(int userID) {
+        this.id = userID;
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+            br.readLine(); // skip header line
+
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] data = line.split(",");
+
+                if (data.length > 0 && Integer.parseInt(data[0]) == userID) {
+                    this.username         = data[1];
+                    this.password         = data[2];
+                    this.name             = data[3];
+                    this.weight           = Double.parseDouble(data[4]);
+                    this.weightMeasurement= data[5];
+                    this.height           = Double.parseDouble(data[6]);
+                    this.goal             = data[7];
+                    this.activityLevel    = Integer.parseInt(data[8]);
+                    this.gender           = data[9];
+                    return;
+                }
+            }
+            throw new RuntimeException("User with ID " + userID + " not found in database");
+
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to read user database", e);
+        }
     }
 
 

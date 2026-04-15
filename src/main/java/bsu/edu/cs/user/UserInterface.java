@@ -1,18 +1,14 @@
 package bsu.edu.cs.user;
 
+import bsu.edu.cs.Main.MainInterface;
+
 import java.util.Random;
 import java.util.Scanner;
 
-public class UserInterface {
+public class UserInterface extends MainInterface {
 
-    private int userID;
     private final Scanner scanner = new Scanner(System.in);
-    public int getUserID(){
-        return userID;
-    }
-
     public void openSettingsMenu(){
-        User currentUser = new User(userID);
         boolean accessingSettings = true;
         while(accessingSettings){
             System.out.println("What would you like to change?:" +
@@ -29,35 +25,35 @@ public class UserInterface {
                 case "1":
                     System.out.println("Type in your new name:");
                     String newName = scanner.nextLine();
-                    currentUser.setName(newName);
+                    user.setName(newName);
                     break;
                 case "2":
                     System.out.println("Type in your new username:");
                     String newUsername = scanner.nextLine();
-                    currentUser.setUsername(newUsername);
+                    user.setUsername(newUsername);
                     break;
                 case "3":
                     System.out.println("Type in your new password:");
                     String newPassword = scanner.nextLine();
-                    currentUser.setPassword(newPassword);
+                    user.setPassword(newPassword);
                     break;
                 case "4":
                     System.out.println("Type in your new weight in kg:");
                     double newWeight = Double.parseDouble(scanner.nextLine());
-                    currentUser.setWeight(newWeight);
+                    user.setWeight(newWeight);
                     break;
                 case "5":
                     System.out.println("Type in your new height:");
                     double newHeight = Double.parseDouble(scanner.nextLine());
-                    currentUser.setHeight(newHeight);
+                    user.setHeight(newHeight);
                     break;
                 case "6":
                     String newGoal = getGoal();
-                    currentUser.setGoal(newGoal);
+                    user.setGoal(newGoal);
                     break;
                 case "7":
                     int newActivityLevel = getActivityLevel();
-                    currentUser.setActivityLevel(newActivityLevel);
+                    user.setActivityLevel(newActivityLevel);
                     break;
                 case "8":
                     accessingSettings = false;
@@ -93,40 +89,62 @@ public class UserInterface {
                         }
                     }else{
                         System.out.println("Logging in...");
-                        userID = login.getId();
+                        user = new User(login.getId());
                         accessingResponse = false;
+                        break;
                     }
                     break;
                 case "2":
-                    int randomId = (int)(Math.random() * 10000);
-                    userID = randomId;
-                    System.out.println("Type in your name:");
-                    String name = scanner.nextLine();
-                    System.out.println("Type in your desired username");
-                    String userName = scanner.nextLine();
-                    System.out.println("Type in your desired password");
-                    String newPassword = scanner.nextLine();
-                    System.out.println("Type in your weight in kg");
-                    double weight = Double.parseDouble(scanner.nextLine());
-                    String weightMeasurement = "kg";
-                    System.out.println("Type in your height");
-                    double height = Double.parseDouble(scanner.nextLine());
-
-                    String goal = getGoal();
-
-                    int activityLevel = getActivityLevel();
-
-                    String gender = getGender();
-
-                    User user = new User(userID,userName,newPassword,name,weight,weightMeasurement,height,goal,activityLevel,gender);
-                    NewUser newUser = new NewUser();
-                    newUser.createNewUser(user);
+                    createNewUserMenu();
                     break;
                 default:
                     System.out.println("Sorry, please try again!");
             }
         }
     }
+
+    //This is the menu with questions to create a new user with an exception
+    //checker to see if the username is already in use
+    private void createNewUserMenu(){
+
+        //Method Variables
+        boolean isRunning = true;
+        NewUser newUser = new NewUser();
+        //End of Method Variables
+
+        //Start while loop
+        while(isRunning) {
+            //Getting User Attributes
+            int randomId = (int) (Math.random() * 10000);
+            int userID = randomId;
+            System.out.println("Type in your name:");
+            String name = scanner.nextLine();
+            System.out.println("Type in your desired username");
+            String userName = scanner.nextLine();
+            System.out.println("Type in your desired password");
+            String newPassword = scanner.nextLine();
+            System.out.println("Type in your weight in kg");
+            double weight = Double.parseDouble(scanner.nextLine());
+            String weightMeasurement = "kg";
+            System.out.println("Type in your height");
+            double height = Double.parseDouble(scanner.nextLine());
+            String goal = getGoal();
+            int activityLevel = getActivityLevel();
+            String gender = getGender();
+            //End getting Attributes
+
+            //Checking for username availability and creating new user
+            User possibleNewUser = new User(userID, userName, newPassword,
+                    name, weight, weightMeasurement, height, goal,
+                    activityLevel, gender);
+            if (!newUser.createNewUser(possibleNewUser)){
+                System.out.println("Username Already Exists, please try again");
+            }else{
+                isRunning = false;
+                user = possibleNewUser;
+            }//End if-else
+        } //End While Loop
+    } //End CreateNewUserMenu
 
     private String getGoal() {
         boolean responding = true;
