@@ -1,5 +1,4 @@
 package bsu.edu.cs.calculators;
-import java.util.Scanner;
 public class MacroCalc {
 private double conversionRatio;
 
