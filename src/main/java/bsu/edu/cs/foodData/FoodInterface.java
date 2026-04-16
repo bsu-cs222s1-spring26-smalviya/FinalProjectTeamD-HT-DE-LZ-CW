@@ -2,6 +2,7 @@ package bsu.edu.cs.foodData;
 
 import bsu.edu.cs.APIApps.USDAClient.USDAListParser;
 import bsu.edu.cs.APIApps.USDAClient.USDAToJsonClient;
+import bsu.edu.cs.Main.MainInterface;
 import bsu.edu.cs.foodData.DataQuery;
 import bsu.edu.cs.foodData.FoodItem;
 import bsu.edu.cs.foodData.LogTime;
@@ -11,18 +12,12 @@ import javax.print.attribute.IntegerSyntax;
 import java.io.IOException;
 import java.util.Scanner;
 
-public class FoodInterface {
+public class FoodInterface extends MainInterface {
 
     private final DataQuery dataQuery;
-    private final Scanner scanner;
-    private final double userWeight;
-    private final String userWeightMeasurement;
 
-    public FoodInterface(int userID, double userWeight, String userWeightMeasurement) {
-        this.dataQuery = new DataQuery(userID);
-        this.scanner = new Scanner(System.in);
-        this.userWeight = userWeight;
-        this.userWeightMeasurement = userWeightMeasurement;
+    public FoodInterface() {
+        dataQuery = new DataQuery(user.getId());
     }
 
     public void openFoodMenu() throws JSONException, IOException {
@@ -79,7 +74,7 @@ public class FoodInterface {
                 LogTime timer = new LogTime();
                 String currentTime = timer.getCurrentTime();
                 timer.parseTimeStringIntoVariables(currentTime);
-                dataQuery.logFoodItem(timer.getMonth(), timer.getDay(), timer.getYear(),userWeight,userWeightMeasurement );
+                dataQuery.logFoodItem(timer.getMonth(), timer.getDay(), timer.getYear(),user.getWeight(),user.getWeightMeasurement() );
                 System.out.println("Logged at: " + timer.makeTimeReadable());
                 logNewFoodIsRunning = false;
             }else if (choice == 0){
