@@ -2,7 +2,7 @@ package bsu.edu.cs.calculators;
 public class MacroCalc {
 private double conversionRatio;
 
-  public void calcByWeight(double foodItemWight, double userInputedFoodWeight) {
+  public void calcByWeight(double foodItemWeight, double userInputedFoodWeight) {
     if (userInputedFoodWeight != 0) {
       this.conversionRatio = foodItemWeight / userInputedFoodWeight;
     } else {
