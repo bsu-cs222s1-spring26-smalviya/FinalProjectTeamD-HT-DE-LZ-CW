@@ -19,10 +19,6 @@ public class User {
 
     private final String filePath = "src/main/resources/UserData/UserDatabase.csv";
 
-    public User(int id) {
-        this.id = id;
-    } // end User
-
     public User(int id, String username, String password, String name, double weight, String weightMeasurement, double height, String goal, int activityLevel, String gender) {
         this.id = id;
         this.username = username;

@@ -15,8 +15,8 @@ public class main {
 
     public static void main(String[] args) {
         logInUser();
-        //user = new User(userInterface.getUserID());
-        //foodInterface = new FoodInterface(userInterface.getUserID(),user.getWeight(), user.getWeightMeasurement());
+        User user = new User(userInterface.getUserID());
+        foodInterface = new FoodInterface(userInterface.getUserID(),user.getWeight(), user.getWeightMeasurement());
         runProgram();
         //System.out.println("Would you like to open foodLogger or user settings? (1 or 2)");
     }
@@ -52,6 +52,6 @@ public class main {
                 isUserLoggedIn = true;
             }
         }
-        foodInterface = new FoodInterface();
+        //foodInterface = new FoodInterface();
     }
 }
