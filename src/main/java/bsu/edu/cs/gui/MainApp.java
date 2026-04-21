@@ -1,5 +1,6 @@
 package bsu.edu.cs.gui;
 
+import bsu.edu.cs.user.Login;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -9,12 +10,12 @@ import javafx.stage.Stage;
 public class MainApp extends Application {
     @Override
     public void start(Stage stage) {
-        stage.setTitle("Test Window");
+        LoginScreen loginScreen =  new LoginScreen(stage);
 
-        VBox root = new VBox();
-        root.getChildren().add(new Label("Hello World"));
+        Scene scene = new Scene(loginScreen.getView(), 400, 300);
 
-        stage.setScene(new Scene(root, 300, 200));
+        stage.setTitle("Login");
+        stage.setScene(scene);
         stage.show();
     } // end start()
 
