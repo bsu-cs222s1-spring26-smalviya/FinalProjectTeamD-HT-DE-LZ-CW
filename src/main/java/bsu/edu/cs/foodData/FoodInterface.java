@@ -16,8 +16,8 @@ public class FoodInterface extends MainInterface {
 
     private final DataQuery dataQuery;
 
-    public FoodInterface() {
-        dataQuery = new DataQuery(user.getId());
+    public FoodInterface(int userID, double weight, String measurement) {
+        this.dataQuery = new DataQuery(userID);
     }
 
     public void openFoodMenu() throws JSONException, IOException {
