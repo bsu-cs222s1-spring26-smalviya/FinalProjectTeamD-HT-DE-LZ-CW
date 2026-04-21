@@ -62,22 +62,32 @@ public class DataQuery {
 
                 if (m == month && d == day && y == year) {
                     log.append(String.format(
-                                "\nTime: %s\n" +
-                                    "Name: %s \n" +
-                                    "%s calories,\n" +
-                                    "%s potassium,\n" +
-                                    "%s iron,\n" +
-                                    "%s unsaturated fat,\n" +
-                                    "%s saturated fat,\n" +
-                                    "%s protein,\n" +
-                                    "%s calcium,\n" +
-                                    "%s sugar,\n" +
-                                    "%s fiber,\n" +
-                                    "%s carbs,\n" +
-                                    "%s cholesterol\n",
-                            data[3], data[4],
-                            data[6], data[7], data[8], data[9], data[10],
-                            data[11], data[12], data[13], data[14], data[15], data[16]
+                            "\nTime: %s\n" +
+                                    "Name: %s\n" +
+                                    "Calories: %s\n" +
+                                    "Potassium: %s\n" +
+                                    "Iron: %s\n" +
+                                    "Unsaturated Fat: %s\n" +
+                                    "Saturated Fat: %s\n" +
+                                    "Protein: %s\n" +
+                                    "Calcium: %s\n" +
+                                    "Sugar: %s\n" +
+                                    "Fiber: %s\n" +
+                                    "Carbs: %s\n" +
+                                    "Cholesterol: %s\n",
+                            data[3],  // time
+                            data[4],  // name
+                            data[6],  // calories (This correctly skips Index 5, the fdcID)
+                            data[7],  // potassium
+                            data[8],  // iron
+                            data[9],  // unsatFat
+                            data[10], // satFat
+                            data[11], // protein
+                            data[12], // calcium
+                            data[13], // sugar
+                            data[14], // fiber
+                            data[15], // carbs
+                            data[16]  // cholesterol
                     ));
                 }
             }
