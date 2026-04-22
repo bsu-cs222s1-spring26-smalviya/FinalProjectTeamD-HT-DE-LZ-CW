@@ -15,7 +15,6 @@ import java.util.Scanner;
 public class FoodInterface extends MainInterface {
 
     private final DataQuery dataQuery;
-
     public FoodInterface(int userID, double weight, String measurement) {
         this.dataQuery = new DataQuery(userID);
     }

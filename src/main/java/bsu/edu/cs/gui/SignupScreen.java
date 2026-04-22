@@ -1,41 +1,42 @@
 package bsu.edu.cs.gui;
 
-import bsu.edu.cs.user.*;
+import bsu.edu.cs.user.NewUser;
+import bsu.edu.cs.user.User;
+import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 public class SignupScreen {
     private VBox view;
 
-    public SignupScreen(Stage stage) {
-        TextField nameField = new TextField();
+    public SignupScreen() {
+        TextField     nameField     = new TextField();
         nameField.setPromptText("Name");
 
-        TextField usernameField = new TextField();
+        TextField     usernameField = new TextField();
         usernameField.setPromptText("Username");
 
         PasswordField passwordField = new PasswordField();
         passwordField.setPromptText("Password");
 
-        TextField weightField = new TextField();
-        weightField.setPromptText("Weight");
+        TextField     weightField   = new TextField();
+        weightField.setPromptText("Weight (kg)");
 
-        TextField heightField = new TextField();
-        heightField.setPromptText("Height");
+        TextField     heightField   = new TextField();
+        heightField.setPromptText("Height (cm)");
 
-        TextField goalField = new TextField();
+        TextField     goalField     = new TextField();
         goalField.setPromptText("Goal (Loss / Gain / Maintain)");
 
-        TextField activityField = new TextField();
+        TextField     activityField = new TextField();
         activityField.setPromptText("Activity Level (1-5)");
 
-        TextField genderField = new TextField();
+        TextField     genderField   = new TextField();
         genderField.setPromptText("Gender (male / female)");
 
-        Button createButton  = new Button("Create Account");
-
-        Label message = new Label();
+        Button createButton = new Button("Create Account");
+        Button backButton   = new Button("Back to Login");
+        Label  message      = new Label();
 
         createButton.setOnAction(e -> {
             try {
@@ -54,19 +55,22 @@ public class SignupScreen {
                 );
 
                 NewUser newUser = new NewUser();
-
                 if (newUser.createNewUser(user)) {
-                    message.setText("Account created successfully!");
+                    MainApp.setCurrentUser(user);
+                    MainApp.showMain();
                 } else {
-                    message.setText("Username already exists");
-                } // end if
+                    message.setText("Username already exists.");
+                }
             } catch (Exception ex) {
-                message.setText("Invalid input. Please check fields.");
-            } // end try/catch
+                message.setText("Invalid input. Please check all fields.");
+            }
         });
+
+        backButton.setOnAction(e -> MainApp.showLogin());
 
         view = new VBox(10,
                 nameField,
+                usernameField,
                 passwordField,
                 weightField,
                 heightField,
@@ -74,11 +78,13 @@ public class SignupScreen {
                 activityField,
                 genderField,
                 createButton,
+                backButton,
                 message
         );
-    } // end SignupScreen
+        view.setPadding(new Insets(20));
+    }
 
     public VBox getView() {
         return view;
-    } // end getView
+    }
 }
