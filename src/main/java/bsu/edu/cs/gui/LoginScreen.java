@@ -16,6 +16,7 @@ public class LoginScreen {
         passwordField.setPromptText("Password");
 
         Button loginButton = new Button("Login");
+        Button signupButton = new Button("Sign Up");
 
         Label message = new Label();
 
@@ -33,7 +34,12 @@ public class LoginScreen {
             } // end if
         });
 
-        view = new VBox(10, usernameField, passwordField, loginButton, message);
+        signupButton.setOnAction(e -> {
+            SignupScreen signup = new SignupScreen(stage);
+            stage.getScene().setRoot(signup.getView());
+        });
+
+        view = new VBox(10, usernameField, passwordField, loginButton, signupButton, message);
     } // end LoginScreen
 
     public VBox getView() {
