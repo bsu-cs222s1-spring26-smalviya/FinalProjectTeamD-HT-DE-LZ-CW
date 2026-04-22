@@ -1,5 +1,6 @@
 package bsu.edu.cs.gui;
 
+import bsu.edu.cs.user.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -17,6 +18,20 @@ public class LoginScreen {
         Button loginButton = new Button("Login");
 
         Label message = new Label();
+
+        loginButton.setOnAction(e -> {
+            Login login = new Login();
+            login.setUsername(usernameField.getText());
+            login.setPassword(passwordField.getText());
+
+            int id = login.getId();
+
+            if( id != -1) {
+                message.setText("Login successful!");
+            } else {
+                message.setText("Invalid username or password");
+            } // end if
+        });
 
         view = new VBox(10, usernameField, passwordField, loginButton, message);
     } // end LoginScreen
