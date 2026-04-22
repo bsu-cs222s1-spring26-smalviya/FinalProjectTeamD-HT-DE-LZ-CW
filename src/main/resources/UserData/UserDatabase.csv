@@ -1,5 +1,4 @@
 id,username,password,name,weight,weightMeasurement,height,goal,activityLevel,gender
-8634,hum,hum,humberto,60.0,kg,180.0,Loss,5,male
-8401,cal,cal,cal,60.0,kg,180.0,Loss,5,male
-1868,tom,tom,humberto,60.0,kg,180.0,Gain,5,male
-7456,turtle,turtle,humberto,60.0,kg,200.0,Loss,3,male
+2161,usertest,usertest,humberto,80.0,kg,180.0,Gain,5,male
+5394,humber,humber,humber,90.0,kg,180.0,Loss,4,male
+1000,Username,Password,Name,180.0,lbs,70.0,lose,3,male

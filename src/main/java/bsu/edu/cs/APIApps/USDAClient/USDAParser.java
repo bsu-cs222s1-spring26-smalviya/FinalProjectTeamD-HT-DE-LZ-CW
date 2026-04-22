@@ -42,6 +42,17 @@ public class USDAParser {
         return defaultAmount;
     }
 
+    private double getNutrientAmountByName(String name) throws JSONException {
+        for (int i = 0; i < nutrients.length(); i++) {
+            JSONObject entry = nutrients.getJSONObject(i);
+            JSONObject nutrient = entry.getJSONObject("nutrient");
+            if (nutrient.getString("name").equalsIgnoreCase(name)) {
+                return entry.optDouble("amount", 0.0);
+            }
+        }
+        return 0.0;
+    }
+
     public double parseWeightOfFood() throws JSONException {
         String foodPortionsKey = "foodPortions";
         String gramWeightKey = "gramWeight";
@@ -70,59 +81,57 @@ public class USDAParser {
     }
 
     public double parseForCalories() throws JSONException {
-        int energyNutrientId = 2047;
-        return getNutrientAmount(energyNutrientId);
+        for (int i = 0; i < nutrients.length(); i++) {
+            JSONObject entry = nutrients.getJSONObject(i);
+            JSONObject nutrient = entry.getJSONObject("nutrient");
+            if (nutrient.getString("unitName").equals("kcal")) {
+                return entry.optDouble("amount", 0.0);
+            }
+        }
+        return 0.0;
     }
 
     public double parseForPotassium() throws JSONException {
-        int potassiumNutrientId = 1092;
-        return getNutrientAmount(potassiumNutrientId);
+        return getNutrientAmountByName("Potassium, K");
     }
-
     public double parseForIron() throws JSONException {
-        int ironNutrientId = 1089;
-        return getNutrientAmount(ironNutrientId);
+        return getNutrientAmountByName("Iron, Fe");
     }
 
     public double parseForSatFat() throws JSONException {
-        int satFatNutrientId = 1258;
-        return getNutrientAmount(satFatNutrientId);
+        return getNutrientAmountByName("Fatty acids, total saturated");
     }
 
     public double parseForUnSatFat() throws JSONException {
-        int unSatFatNutrientId = 1004;
-        return getNutrientAmount(unSatFatNutrientId);
+        double totalFat = getNutrientAmountByName("Total lipid (fat)");
+        double satFat = getNutrientAmountByName("Fatty acids, total saturated");
+        return Math.max(0.0, totalFat - satFat);
     }
 
     public double parseForProtein() throws JSONException {
-        int proteinNutrientId = 1003;
-        return getNutrientAmount(proteinNutrientId);
+        return getNutrientAmountByName("Protein");
     }
 
     public double parseForCalcium() throws JSONException {
-        int calciumNutrientId = 1087;
-        return getNutrientAmount(calciumNutrientId);
+        return getNutrientAmountByName("Calcium, Ca");
     }
 
     public double parseForSugar() throws JSONException {
-        int sugarNutrientId = 2000;
-        return getNutrientAmount(sugarNutrientId);
+        return getNutrientAmountByName("Total Sugars");
     }
 
     public double parseForFiber() throws JSONException {
-        int fiberNutrientId = 1079;
-        return getNutrientAmount(fiberNutrientId);
+        return getNutrientAmountByName("Fiber, total dietary");
     }
 
     public double parseForCarbs() throws JSONException {
-        int carbsNutrientId = 1005;
-        return getNutrientAmount(carbsNutrientId);
+        return getNutrientAmountByName("Carbohydrate, by difference");
     }
 
     public double parseForCholesterol() throws JSONException {
-        int cholesterolNutrientId = 1253;
-        return getNutrientAmount(cholesterolNutrientId);
+        return getNutrientAmountByName("Cholesterol");
     }
+
     public String parseForName() throws JSONException {
         String descriptionKey = "description";
         return sourceJson.getString(descriptionKey);

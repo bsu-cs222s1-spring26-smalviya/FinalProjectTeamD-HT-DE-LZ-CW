@@ -64,7 +64,7 @@ public class USDAToJsonClient {
         String urlString = String.format(
                 "https://api.nal.usda.gov/fdc/v1/foods/search?api_key=%s&dataType=%s&query=%s&pageSize=%d&pageNumber=%d",
                 apiKey,joinedData,encodedTitle,pageSize,pageNumber);
-        System.out.println(urlString);
+//        System.out.println(urlString);
         return urlString;
     }
     public String getURLStringForFoodID(int foodID){
@@ -73,7 +73,7 @@ public class USDAToJsonClient {
         String urlString = String.format(
                 "https://api.nal.usda.gov/fdc/v1/food/%s?api_key=%s&format=%s",
                 encodedTitle,apiKey,format);
-        System.out.println(urlString);
+//        System.out.println(urlString);
         return urlString;
     }
 

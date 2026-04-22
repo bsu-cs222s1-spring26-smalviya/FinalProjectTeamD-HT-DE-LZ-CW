@@ -1,8 +1,21 @@
 plugins {
     id("java")
     id("application")
+    id ("java-library")
     //OpenAPIGenerator for USDA
     id("org.openapi.generator") version "7.21.0"
+    id("org.openjfx.javafxplugin") version "0.0.13"
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+javafx {
+    version = "21"
+    modules = listOf("javafx.controls")
 }
 
 group = "org.example"

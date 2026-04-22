@@ -9,7 +9,6 @@ import org.json.JSONException;
 import java.io.IOException;
 
 public class FoodItem {
-
     private USDAParser parser;
     private String foodName;
     private int fdcID;
@@ -24,12 +23,12 @@ public class FoodItem {
     private double fiber;
     private double carbs;
     private double cholesterol;
-    public FoodItem(int fdcID) throws JSONException, IOException {
-        //For testing purposes, the food will always be rice...
-        //Numbers will also be hard coded for now
+
+    public FoodItem(int fdcID, USDAParser actualParser) throws IOException {
+
+        parser = actualParser;
         USDAToJsonClient client = new USDAToJsonClient();
         client.getFoodItemJson(fdcID);
-        parser = new USDAParser();
         try {
             this.foodName = parser.parseForName();
             this.fdcID = fdcID;
@@ -45,21 +44,13 @@ public class FoodItem {
             this.carbs = parser.parseForCarbs();
             this.cholesterol = parser.parseForCholesterol();
         } catch (Exception e) {
-            this.foodName = "Rice";
-            this.fdcID = 0;
-            this.calories = 130.0;
-            this.potassium = 0.0;
-            this.iron = 0.0;
-
-            this.satFat = 0.0;
-            this.unSatFat =0.0;
-            this.protein = 2.7;
-            this.calcium = 0.0;
-            this.sugar = 0.0;
-            this.fiber = 0.0;
-            this.carbs = 28.2;
-            this.cholesterol = 0.0;
+            e.printStackTrace();
+            throw new RuntimeException("Failed to build FoodItem for fdcID: " + fdcID, e);
         }
+    }
+
+    public FoodItem(int fdcID) throws JSONException, IOException {
+        this(fdcID, new USDAParser()); // This one fetches from API via USDAParser's default constructor
     }
 
     public String getFoodName() {

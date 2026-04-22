@@ -9,45 +9,49 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class main {
-
-    static private User user;
-    static private final Scanner scanner = new Scanner(System.in);
+    static private final MainInterface mainInterface = new MainInterface();
     static private final UserInterface userInterface = new UserInterface();
     static private FoodInterface foodInterface;
 
-    public static void main(String[] args){
-        userInterface.logInScreen();
-        user = new User(userInterface.getUserID());
-        foodInterface = new FoodInterface(userInterface.getUserID());
-        try {
-            runProgram();
-        } catch (JSONException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        System.out.println("Would you like to open foodLogger or user settings? (1 or 2)");
+    public static void main(String[] args) {
+        logInUser();
+        User user = new User(userInterface.getUserID());
+        foodInterface = new FoodInterface(userInterface.getUserID(),user.getWeight(), user.getWeightMeasurement());
+        runProgram();
+        //System.out.println("Would you like to open foodLogger or user settings? (1 or 2)");
     }
 
-    private static void runProgram() throws JSONException, IOException {
-        boolean running = true;
-        while(running){
-            System.out.println("Would you like to... \n(1) open foodLogger \n(2) user settings?\n(3) quit");
-            String response = scanner.nextLine();
-            switch (response){
-                case "1":
-                    foodInterface.openFoodMenu();
-                    break;
-                case "2":
-//                    userInterface.openSettingsMenu();
-                    System.out.println("Currently Unavailable");
-                    break;
-                case "3":
-                    running = false;
-                    break;
-                default:
-                    System.out.println("Sorry, invalid input. Try Again!");
+    private static void runProgram(){
+        try {
+            boolean running = true;
+            while(running){
+                switch (mainInterface.mainMenuUserRequest()){
+                    case 1:
+                        foodInterface.openFoodMenu();
+                        break;
+                    case 2:
+                        userInterface.openSettingsMenu();
+                        break;
+                    case 3:
+                        running = false;
+                        break;
+                    default:
+                        System.out.println("Sorry, invalid input. Try Again!");
+                }
+            }
+        } catch (JSONException | IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private static void logInUser(){
+        boolean isUserLoggedIn = false;
+        while(!isUserLoggedIn) {
+            userInterface.logInScreen();
+            if(userInterface.getUserID() >= 0){
+                isUserLoggedIn = true;
             }
         }
+        //foodInterface = new FoodInterface();
     }
 }

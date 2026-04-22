@@ -1,9 +1,18 @@
 package bsu.edu.cs.calculators;
-import java.util.Scanner;
 public class MacroCalc {
-  public static void main(String[] args) {
-    Scanner scanner = new scanner(System.in)
+private double conversionRatio;
 
-      
+  public void calcByWeight(double foodItemWeight, double userInputedFoodWeight) {
+    if (userInputedFoodWeight != 0) {
+      this.conversionRatio = foodItemWeight / userInputedFoodWeight;
+    } else {
+      this.conversionRatio = 0;
+    }
+  }
+  public void calcByPortion (double userInputedFoodPortion) {
+    
+  }
+  public double getConversionRatio() {
+    return conversionRatio;
   }
 }
