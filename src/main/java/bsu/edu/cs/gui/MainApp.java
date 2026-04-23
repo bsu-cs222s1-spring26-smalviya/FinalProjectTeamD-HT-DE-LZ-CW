@@ -1,5 +1,7 @@
 package bsu.edu.cs.gui;
 
+import bsu.edu.cs.foodData.DataQuery;
+import bsu.edu.cs.foodData.FoodItem;
 import bsu.edu.cs.user.User;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -8,10 +10,11 @@ import javafx.stage.Stage;
 public class MainApp extends Application {
 
     private static User currentUser;
-    public static User getCurrentUser()            { return currentUser; }
-    public static void setCurrentUser(User user)   { currentUser = user; }
-    public static void logout()                    { currentUser = null; }
-    public static boolean isLoggedIn()             { return currentUser != null; }
+
+    public static User getCurrentUser() { return currentUser; }
+    public static void setCurrentUser(User user){ currentUser = user; }
+    public static void logout(){ currentUser = null; }
+    public static boolean isLoggedIn() { return currentUser != null; }
 
     private static Stage primaryStage;
 
@@ -39,12 +42,25 @@ public class MainApp extends Application {
         primaryStage.setTitle("Food Log");
     }
 
+    public static void showFoodItem(FoodItem item, DataQuery dataQuery) {
+        FoodItemScreen screen = new FoodItemScreen(item, dataQuery);
+        primaryStage.getScene().setRoot(screen.getView());
+        primaryStage.setTitle(item.getName());
+    }
+
+    public static void showSettings() {
+        SettingsScreen screen = new SettingsScreen();
+        primaryStage.getScene().setRoot(screen.getView());
+        primaryStage.setTitle("Settings");
+    }
+
+    // --- JavaFX entry point ---
     @Override
     public void start(Stage stage) {
         primaryStage = stage;
 
         LoginScreen loginScreen = new LoginScreen();
-        Scene scene = new Scene(loginScreen.getView(), 500, 400);
+        Scene scene = new Scene(loginScreen.getView(), 500, 500);
         stage.setTitle("Login");
         stage.setScene(scene);
         stage.show();

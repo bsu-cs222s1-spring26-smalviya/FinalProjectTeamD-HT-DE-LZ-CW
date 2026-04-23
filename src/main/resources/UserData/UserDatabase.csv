@@ -1,5 +1,2 @@
 id,username,password,name,weight,weightMeasurement,height,goal,activityLevel,gender
-2161,usertest,usertest,humberto,80.0,kg,180.0,Gain,5,male
-5394,humber,humber,humber,90.0,kg,180.0,Loss,4,male
-1000,Username,Password,Name,180.0,lbs,70.0,lose,3,male
-31330,jack,jack,jack,80.0,kg,180.0,loss,3,male
+5412,example,example,example,90.0,kg,180.0,gain,3,male

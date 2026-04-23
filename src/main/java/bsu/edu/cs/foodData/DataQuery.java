@@ -5,10 +5,11 @@ import bsu.edu.cs.APIApps.USDAClient.USDAParser;
 import bsu.edu.cs.user.User;
 import org.json.JSONException;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.util.Arrays;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Scanner;
 
 public class DataQuery {
     private FoodItem item;
@@ -96,7 +97,7 @@ public class DataQuery {
 
             LogTime timer = new LogTime();
             String currentTime = timer.getCurrentTime();
-            fw.write(String.format("\n%d,%d,%d,%s,%s,%d,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%s",
+            fw.write(String.format("\n%d,%d,%d,%s,\"%s\",%d,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%s",
                     month, day, year,
                     currentTime,
                     item.getName(),
@@ -123,6 +124,10 @@ public class DataQuery {
 
     public void setFoodItem(int fdcID) throws JSONException, IOException {
         item = new FoodItem(fdcID);
+    }
+
+    public FoodItem getFoodItem() {
+        return item;
     }
 
     public String getUserLogString() {
@@ -158,6 +163,37 @@ public class DataQuery {
         }
         return listOfFood;
     }
+    public Map<String, Double> getAllWeightEntries() {
+        // LinkedHashMap preserves insertion order so dates stay chronological
+        Map<String, Double> entries = new LinkedHashMap<>();
+
+        try (BufferedReader br = new BufferedReader(new FileReader(userLogString))) {
+            br.readLine(); // skip header
+
+            String line;
+            while ((line = br.readLine()) != null) {
+                if (line.trim().isEmpty()) continue;
+
+                String[] data = line.split(",");
+                if (data.length < 19) continue;
+
+                String dateKey = String.format("%s/%s/%s",
+                        data[0].trim(), data[1].trim(), data[2].trim());
+
+                // Only store the first entry per day so the graph shows one point per day
+                if (!entries.containsKey(dateKey)) {
+                    try {
+                        double weight = Double.parseDouble(data[17].trim());
+                        entries.put(dateKey, weight);
+                    } catch (NumberFormatException ignored) {}
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return entries;
+    }
 
     public int getNumberOfFoodOptions() {
         try {
@@ -171,7 +207,6 @@ public class DataQuery {
         return (int) listParser.parseForFDCID(choice);
     }
 
-    // --- NEW: used by FoodInterfaceScreen to label each search result button ---
     public String getFoodLabel(int position) throws JSONException {
         String name  = listParser.parseForNameofFood(position);
         String brand = listParser.parseForBrandNameOfFood(position);
@@ -181,5 +216,41 @@ public class DataQuery {
             return String.format("%s | %d kcal", name, cals);
         }
         return String.format("%s | %s | %d kcal", name, brand, cals);
+    }
+
+    public double getTotalCaloriesForDay(int month, int day, int year) {
+        double totalCalories = 0.0;
+
+        try (BufferedReader br = new BufferedReader(new FileReader(userLogString))) {
+            String line;
+            br.readLine(); // Skip the header row
+
+            while ((line = br.readLine()) != null) {
+                line = line.trim();
+                if (line.isEmpty()) continue;
+
+                String[] parts = line.split(",");
+
+                if (parts.length < 7) continue;
+
+                try {
+                    int logMonth = Integer.parseInt(parts[0].trim());
+                    int logDay   = Integer.parseInt(parts[1].trim());
+                    int logYear  = Integer.parseInt(parts[2].trim());
+
+                    if (logMonth == month && logDay == day && logYear == year) {
+                        totalCalories += Double.parseDouble(parts[6].trim());
+                    }
+                } catch (NumberFormatException e) {
+                    continue;
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Error reading user log: " + e.getMessage());
+        }
+
+        // Keep your print statement for debugging
+        System.out.println("Total calories for " + month + "/" + day + "/" + year + ": " + totalCalories);
+        return totalCalories;
     }
 }
