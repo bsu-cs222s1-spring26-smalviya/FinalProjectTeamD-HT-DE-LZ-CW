@@ -53,14 +53,19 @@ public class USDAParser {
         return 0.0;
     }
 
-    public double parseWeightOfFood() throws JSONException {
-        String foodPortionsKey = "foodPortions";
-        String gramWeightKey = "gramWeight";
-        int firstPortion = 0;
+    public double parseWeightOfFood() {
+        try {
+            String foodPortionsKey = "foodPortions";
+            String gramWeightKey = "gramWeight";
+            int firstPortion = 0;
 
-        return sourceJson.getJSONArray(foodPortionsKey)
-                .getJSONObject(firstPortion)
-                .getDouble(gramWeightKey);
+            return sourceJson.getJSONArray(foodPortionsKey)
+                    .getJSONObject(firstPortion)
+                    .getDouble(gramWeightKey);
+        } catch (JSONException e){
+            return  100.0;
+        }
+
     }
 
     public String parseForMeasurement() throws JSONException {

@@ -5,43 +5,40 @@ import bsu.edu.cs.APIApps.USDAClient.USDAParser;
 import bsu.edu.cs.user.User;
 import org.json.JSONException;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.util.Arrays;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Scanner;
 
 public class DataQuery {
     private FoodItem item;
-    //These will be hard coded to be the test ones for now;
     private String userLogString;
-    //Maybe it would be better to link this stuff to the user or something
-    //I want this to display the data from a specific item that the user is looking at,
-    //I have the item variable stored here locally so if we need to, we can call different things without
-    //having to mention the item as a parameter every time
     private final USDAListParser listParser = new USDAListParser();
-    public DataQuery(int userID){
+
+    public DataQuery(int userID) {
         setUserLogString(userID);
     }
 
-    //This is for our test cases really
-    public DataQuery(String fileName){
+    // For test cases
+    public DataQuery(String fileName) {
         userLogString = fileName;
     }
 
     public String displayFoodData() throws JSONException {
-        return "Calories: " + (int)item.getCalories() + " kCal\n" +
+        return "Calories: " + (int) item.getCalories() + " kCal\n" +
                 "Protein: " + item.getProtein() + " g\n" +
                 "Carbs: " + item.getCarbs() + " g\n" +
                 "Fiber: " + item.getFiber() + " g\n" +
                 "Sugar: " + item.getSugar() + " g\n" +
-                "Saturated Fat: " + Double.toString(item.getSatFat()) + " g\n" +
-                "Unsaturated Fat: " + Double.toString(item.getUnSatFat()) + " g\n" +
+                "Saturated Fat: " + item.getSatFat() + " g\n" +
+                "Unsaturated Fat: " + item.getUnSatFat() + " g\n" +
                 "Cholesterol: " + item.getCholesterol() + " mg\n" +
                 "Potassium: " + item.getPotassium() + " mg\n" +
                 "Calcium: " + item.getCalcium() + " mg\n" +
                 "Iron: " + item.getIron() + " mg";
     }
-    //Grabs the user log of food for the day mentioned and then returns a string of it.
+
     public String grabUserLogForDay(int month, int day, int year) {
         StringBuilder log = new StringBuilder();
         try (BufferedReader br = new BufferedReader(new FileReader(userLogString))) {
@@ -49,16 +46,13 @@ public class DataQuery {
 
             String line;
             while ((line = br.readLine()) != null) {
-                if (line.trim().isEmpty()) continue; // skip empty/blank lines
+                if (line.trim().isEmpty()) continue;
 
                 String[] data = line.split(",");
 
                 int m = Integer.parseInt(data[0]);
-//                System.out.println("Month parsed correctly");
                 int d = Integer.parseInt(data[1]);
-//                System.out.println("day parsed correctly");
                 int y = Integer.parseInt(data[2]);
-//                System.out.println("Year parsed correctly");
 
                 if (m == month && d == day && y == year) {
                     log.append(String.format(
@@ -88,15 +82,13 @@ public class DataQuery {
         return log.toString();
     }
 
-    public void logFoodItem(int month, int day, int year,double userWeight, String measurment) {
-        // Check if file needs a header written first
+    public void logFoodItem(int month, int day, int year, double userWeight, String measurement) {
         boolean needsHeader = false;
         try (BufferedReader br = new BufferedReader(new FileReader(userLogString))) {
             needsHeader = br.readLine() == null;
         } catch (IOException e) {
             needsHeader = true;
         }
-
 
         try (FileWriter fw = new FileWriter(userLogString, true)) {
             if (needsHeader) {
@@ -105,7 +97,7 @@ public class DataQuery {
 
             LogTime timer = new LogTime();
             String currentTime = timer.getCurrentTime();
-            fw.write(String.format("\n%d,%d,%d,%s,%s,%d,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%s",
+            fw.write(String.format("\n%d,%d,%d,%s,\"%s\",%d,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%s",
                     month, day, year,
                     currentTime,
                     item.getName(),
@@ -122,7 +114,7 @@ public class DataQuery {
                     item.getCarbs(),
                     item.getCholesterol(),
                     userWeight,
-                    measurment
+                    measurement
             ));
 
         } catch (IOException e) {
@@ -130,22 +122,29 @@ public class DataQuery {
         }
     }
 
-    public void setFoodItem(int fdcID) throws JSONException, IOException {item = new FoodItem(fdcID);}
+    public void setFoodItem(int fdcID) throws JSONException, IOException {
+        item = new FoodItem(fdcID);
+    }
 
-    public String getUserLogString(){
+    public FoodItem getFoodItem() {
+        return item;
+    }
+
+    public String getUserLogString() {
         return userLogString;
     }
+
     private void setUserLogString(int userID) {
-        userLogString = String.format("src/main/resources/UserData/logs/%dLogData.csv",userID);
+        userLogString = String.format("src/main/resources/UserData/logs/%dLogData.csv", userID);
     }
 
     public String searchFood(String foodName) throws JSONException, IOException {
         listParser.searchForFoods(foodName);
         String listOfFood = "options:\n";
         int numOfOptions = getNumberOfFoodOptions();
-        if (numOfOptions<1){
+        if (numOfOptions < 1) {
             listOfFood = "No foods under that name found.";
-        }else {
+        } else {
             for (int i = 1; i <= numOfOptions; i++) {
                 listOfFood = listOfFood.concat(String.format("%d:\nName: %s\nBrand: %s\nCalories per serving:%d\n\n",
                         i, listParser.parseForNameofFood(i), listParser.parseForBrandNameOfFood(i),
@@ -154,15 +153,104 @@ public class DataQuery {
         }
         return listOfFood;
     }
-    public int getNumberOfFoodOptions(){
+    public String[] searchFoodList(String foodName) throws JSONException, IOException {
+        listParser.searchForFoods(foodName);
+        String[] listOfFood = new String[0];
+        int numOfOptions = getNumberOfFoodOptions();
+        if (numOfOptions < 1) { return listOfFood;}
+        else {
+            for (int i = 1; i <= numOfOptions; i++) { listOfFood[i-1] = listParser.parseForNameofFood(i);}
+        }
+        return listOfFood;
+    }
+    public Map<String, Double> getAllWeightEntries() {
+        // LinkedHashMap preserves insertion order so dates stay chronological
+        Map<String, Double> entries = new LinkedHashMap<>();
+
+        try (BufferedReader br = new BufferedReader(new FileReader(userLogString))) {
+            br.readLine(); // skip header
+
+            String line;
+            while ((line = br.readLine()) != null) {
+                if (line.trim().isEmpty()) continue;
+
+                String[] data = line.split(",");
+                if (data.length < 19) continue;
+
+                String dateKey = String.format("%s/%s/%s",
+                        data[0].trim(), data[1].trim(), data[2].trim());
+
+                // Only store the first entry per day so the graph shows one point per day
+                if (!entries.containsKey(dateKey)) {
+                    try {
+                        double weight = Double.parseDouble(data[17].trim());
+                        entries.put(dateKey, weight);
+                    } catch (NumberFormatException ignored) {}
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return entries;
+    }
+
+    public int getNumberOfFoodOptions() {
         try {
             return listParser.getFoodCount();
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }
     }
-    public int getFoodID(int choice) throws JSONException {
-        return (int)listParser.parseForFDCID(choice);
 
+    public int getFoodID(int choice) throws JSONException {
+        return (int) listParser.parseForFDCID(choice);
+    }
+
+    public String getFoodLabel(int position) throws JSONException {
+        String name  = listParser.parseForNameofFood(position);
+        String brand = listParser.parseForBrandNameOfFood(position);
+        int    cals  = (int) listParser.parseForCaloriesOfFood(position);
+
+        if (brand == null || brand.isEmpty()) {
+            return String.format("%s | %d kcal", name, cals);
+        }
+        return String.format("%s | %s | %d kcal", name, brand, cals);
+    }
+
+    public double getTotalCaloriesForDay(int month, int day, int year) {
+        double totalCalories = 0.0;
+
+        try (BufferedReader br = new BufferedReader(new FileReader(userLogString))) {
+            String line;
+            br.readLine(); // Skip the header row
+
+            while ((line = br.readLine()) != null) {
+                line = line.trim();
+                if (line.isEmpty()) continue;
+
+                String[] parts = line.split(",");
+
+                if (parts.length < 7) continue;
+
+                try {
+                    int logMonth = Integer.parseInt(parts[0].trim());
+                    int logDay   = Integer.parseInt(parts[1].trim());
+                    int logYear  = Integer.parseInt(parts[2].trim());
+
+                    if (logMonth == month && logDay == day && logYear == year) {
+                        totalCalories += Double.parseDouble(parts[6].trim());
+                    }
+                } catch (NumberFormatException e) {
+                    continue;
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Error reading user log: " + e.getMessage());
+        }
+
+        // Keep your print statement for debugging
+        System.out.println("Total calories for " + month + "/" + day + "/" + year + ": " + totalCalories);
+        return totalCalories;
     }
 }

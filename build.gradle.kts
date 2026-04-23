@@ -97,5 +97,5 @@ tasks.withType<JavaExec> {
 
 }
 application {
-    mainClass.set("bsu.edu.cs.Main.main")
+    mainClass.set("bsu.edu.cs.gui.MainApp")
 }

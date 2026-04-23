@@ -4,6 +4,7 @@ import bsu.edu.cs.APIApps.USDAClient.USDAListParser;
 import bsu.edu.cs.APIApps.USDAClient.USDAParser;
 
 import bsu.edu.cs.APIApps.USDAClient.USDAToJsonClient;
+import bsu.edu.cs.calculators.MacroCalc;
 import org.json.JSONException;
 
 import java.io.IOException;
@@ -12,6 +13,7 @@ public class FoodItem {
     private USDAParser parser;
     private String foodName;
     private int fdcID;
+    private double baseWeight;
     private double calories;
     private double potassium;
     private double iron;
@@ -32,6 +34,7 @@ public class FoodItem {
         try {
             this.foodName = parser.parseForName();
             this.fdcID = fdcID;
+            this.baseWeight  = parser.parseWeightOfFood();
             this.calories = parser.parseForCalories();
             this.potassium = parser.parseForPotassium();
             this.iron = parser.parseForIron();
@@ -64,6 +67,8 @@ public class FoodItem {
     public double getCalories() {
         return calories;
     }
+
+    public double getBaseWeight()  { return baseWeight; }
 
     public double getPotassium() {
         return potassium;
@@ -108,9 +113,22 @@ public class FoodItem {
                 + "g\nUnsaturated Fat: " + unSatFat + "g";
     }
 
-//    public void changeMacrosWithWeight(double weight){
-//
-//    }
+    public void changeMacrosWithWeight(double weight){
+        MacroCalc macroCalc = new MacroCalc();
+        macroCalc.calcByWeight(this.baseWeight,weight);
+        double ratio = macroCalc.getConversionRatio();
+        this.calories*= ratio;
+        this.protein*= ratio;
+        this.carbs*= ratio;
+        this.fiber*= ratio;
+        this.sugar*= ratio;
+        this.satFat*= ratio;
+        this.unSatFat*= ratio;
+        this.cholesterol *= ratio;
+        this.potassium *= ratio;
+        this.calcium *= ratio;
+        this.iron *= ratio;
+    }
 
     public String getName() {
         return foodName;
